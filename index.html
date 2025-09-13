@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Honeybee Web Design | Easy Websites for Small Business</title>
+    <meta name="description" content="Beautiful websites made easy. $0 to start, just $49/month. We build it, you see it, then you pay. Perfect for small business!">
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="img/Honeybee Logo - White.png" alt="Honeybee Web Design Logo" class="logo">
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#services" class="nav-link">What You Get</a></li>
+                <li><a href="#pricing" class="nav-link">Price</a></li>
+                <li><a href="#faq" class="nav-link">FAQ</a></li>
+                <li><button id="nav-open-modal" class="nav-link nav-cta">Let's Talk</button></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">Get a Beautiful Website for Your Business: <span class="accent">$0 to Start, Just $49 Per Month</span></h1>
+                    
+                    <ul class="hero-bullets">
+                        <li><strong>Website + logo built in 7 days</strong> - $0 upfront, pay only if you love it</li>
+                        <li><strong>Everything included forever</strong> - Hosting, updates, security - one flat fee</li>
+                        <li><strong>Built for local businesses</strong> - Helps customers find and contact you</li>
+                    </ul>
+                    
+                    <div class="hero-cta">
+                        <button id="open-modal" class="btn btn-primary">Start Today - It's Free!</button>
+                    </div>
+                </div>
+                
+                <!-- YouTube Video Embed -->
+                <div class="hero-video">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+            </div>
+            
+            <!-- Testimonial Carousel -->
+            <div class="hero-testimonial">
+                <div class="testimonial-carousel">
+                    <div class="testimonial-slide active">
+                        <div class="testimonial-stars">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+                        <p class="testimonial-text">"Jake has been amazing to work with and has done such a fabulous job of creating our film and photo website! He is one of a kind and is eager to design your exact vision! Thank you so much!"</p>
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="testimonial-stars">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+                        <p class="testimonial-text">"Jake has done a great job for me. He created my website, and I have gotten good reviews on it. He is very professional and easy to work with. I highly recommend him for your website needs."</p>
+                    </div>
+                </div>
+                <div class="testimonial-dots">
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Modal -->
+    <div id="contact-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Let's Build Your Website!</h3>
+                <p>We'll build it for you. You see it. If you love it, THEN you pay.</p>
+                <span class="close">&times;</span>
+            </div>
+            <form id="contact-form-element">
+                <div class="form-group">
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="company" name="company" placeholder="Business Name">
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="phone" name="phone" placeholder="Phone Number">
+                </div>
+                <div class="form-group">
+                    <textarea id="message" name="message" placeholder="Tell us about your business..." rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary full-width">Get Started - Free Consultation!</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Everything You Need, One Simple Price</h2>
+                <p class="section-subtitle">No headaches or high bills. We handle everything so you can focus on your business.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M35 10H5C3.89543 10 3 10.8954 3 12V30C3 31.1046 3.89543 32 5 32H35C36.1046 32 37 31.1046 37 30V12C37 10.8954 36.1046 10 35 10Z" stroke="#FDA400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M3 16H37" stroke="#FDA400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Custom Website</h3>
+                    <p>A beautiful website made just for your business. Works perfectly on phones and computers.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 6.667L25.773 12.44L33.333 13.547L26.667 20.107L28.547 27.64L20 23.733L11.453 27.64L13.333 20.107L6.667 13.547L14.227 12.44L20 6.667Z" stroke="#FDA400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Professional Logo</h3>
+                    <p>A custom logo designed for your business. Helps you stand out and look professional.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 3.333V36.667M3.333 20H36.667" stroke="#FDA400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M31.667 8.333C35.3483 12.0143 37.5 17.304 37.5 23.04C37.5 28.776 35.3483 34.0657 31.667 37.747" stroke="#FDA400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8.333 8.333C4.65167 12.0143 2.5 17.304 2.5 23.04C2.5 28.776 4.65167 34.0657 8.333 37.747" stroke="#FDA400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Reliable Hosting</h3>
+                    <p>Your website stays online all the time. Fast and secure. We handle all the technical stuff.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 13.333V20L25 25" stroke="#FDA400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M20 3.333C30.459 3.333 38.873 11.747 38.873 22.206C38.873 32.665 30.459 41.079 20 41.079C9.541 41.079 1.127 32.665 1.127 22.206C1.127 11.747 9.541 3.333 20 3.333Z" stroke="#FDA400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Easy Updates</h3>
+                    <p>Need to change something? Just let us know! We'll update it fast. No extra cost.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 36.667C29.205 36.667 36.667 29.205 36.667 20C36.667 10.795 29.205 3.333 20 3.333C10.795 3.333 3.333 10.795 3.333 20C3.333 29.205 10.795 36.667 20 36.667Z" stroke="#FDA400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M20 13.333V20L25 25" stroke="#FDA400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Security & Backups</h3>
+                    <p>We keep your website safe and secure. Plus, we save backup copies so you never have to worry.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M31.667 35V31.667C31.667 29.899 30.964 28.204 29.714 26.954C28.464 25.703 26.768 25 25 25H15C13.232 25 11.536 25.703 10.286 26.954C9.036 28.204 8.333 29.899 8.333 31.667V35" stroke="#FDA400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M20 18.333C23.682 18.333 26.667 15.348 26.667 11.667C26.667 7.985 23.682 5 20 5C16.318 5 13.333 7.985 13.333 11.667C13.333 15.348 16.318 18.333 20 18.333Z" stroke="#FDA400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Ongoing Support</h3>
+                    <p>We're here to help when you need us, for as long as you have your website.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What to Expect Section -->
+    <section id="what-to-expect" class="what-to-expect">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">How We Work Together (It's Simple!)</h2>
+                <p class="section-subtitle">We've made it easy and stress-free. Here's how it works.</p>
+            </div>
+            
+            <ul class="timeline">
+                <!-- Step 1 -->
+                <li>
+                    <div class="direction-r">
+                        <div class="flag-wrapper">
+                            <div class="flag">
+                                <span class="step-number">1</span>
+                                <strong>We Talk</strong>
+                            </div>
+                        </div>
+                        <div class="step-desc">We'll chat about your business and what you're looking for. Takes about 30 minutes. <span class="timeline-badge">Day 1</span></div>
+                    </div>
+                </li>
+                
+                <!-- Step 2 -->
+                <li>
+                    <div class="direction-l">
+                        <div class="flag-wrapper">
+                            <div class="flag">
+                                <span class="step-number">2</span>
+                                <strong>We Build</strong>
+                            </div>
+                        </div>
+                        <div class="step-desc">We'll create your website and logo. You relax while we handle all the work. <span class="timeline-badge">Days 2-7</span></div>
+                    </div>
+                </li>
+                
+                <!-- Step 3 -->
+                <li>
+                    <div class="direction-r">
+                        <div class="flag-wrapper">
+                            <div class="flag">
+                                <span class="step-number">3</span>
+                                <strong>You Look</strong>
+                            </div>
+                        </div>
+                        <div class="step-desc">We show you the finished website. You don't pay anything until you're happy with it. <span class="timeline-badge">Day 8</span></div>
+                    </div>
+                </li>
+                
+                <!-- Step 4 -->
+                <li>
+                    <div class="direction-l">
+                        <div class="flag-wrapper">
+                            <div class="flag">
+                                <span class="step-number">4</span>
+                                <strong>It Goes Live</strong>
+                            </div>
+                        </div>
+                        <div class="step-desc">Love it? Great! We launch it and help you maintain it forever. <span class="timeline-badge">Day 9+</span></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">One Simple Price for Everything</h2>
+                <p class="section-subtitle">No surprises or hidden costs. Just one straightforward monthly payment.</p>
+            </div>
+            <div class="pricing-card">
+                <div class="pricing-badge">Best Deal</div>
+                <div class="pricing-header">
+                    <h3>Your Complete Website</h3>
+                    <div class="price">
+                        <span class="price-amount">$49</span>
+                        <span class="price-period">/month</span>
+                    </div>
+                    <p class="price-description">Stay for 6 months • $0 to start</p>
+                </div>
+                <div class="pricing-features">
+                    <div class="feature-category">
+                        <h4>Website & Design</h4>
+                        <ul>
+                            <li>A beautiful website designed for your business</li>
+                            <li>Custom logo for your brand</li>
+                            <li>Works perfectly on all devices</li>
+                            <li>Google can easily find your site</li>
+                            <li>Fast loading speeds</li>
+                        </ul>
+                    </div>
+                    <div class="feature-category">
+                        <h4>Hosting & Care</h4>
+                        <ul>
+                            <li>Secure hosting for your website</li>
+                            <li>Protection from security threats</li>
+                            <li>Regular backup copies</li>
+                            <li>Online 99.9% of the time</li>
+                            <li>Security certificate included</li>
+                        </ul>
+                    </div>
+                    <div class="feature-category">
+                        <h4>Help & Changes</h4>
+                        <ul>
+                            <li>Update anything, anytime</li>
+                            <li>Ongoing support when you need it</li>
+                            <li>Regular performance reports</li>
+                            <li>Quick problem resolution</li>
+                            <li>Free advice and guidance</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pricing-cta">
+                    <button id="pricing-open-modal" class="btn btn-primary">Start Today - It's Free!</button>
+                    <p class="guarantee-text">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.667 4L6 12.667L2.667 9.333" stroke="#FDA400" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        See it first, then decide
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Questions People Ask Us</h2>
+                <p class="section-subtitle">Got questions? Here are the answers to what most people want to know.</p>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What do I get for $49 every month?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Everything! Your website, logo, safe hosting, all changes you want, keeping it safe, and help whenever you need it. Nothing extra to pay.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How long does it take to make my website?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Most websites are done in 7-10 days. Big websites might take longer. We'll tell you exactly how long when we talk.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What if I don't like my website?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We show you the website before you pay anything! If you don't like it, we'll change it. If you still don't like it, you can walk away. No cost!</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Can I stop anytime?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>After 6 months, yes! Just tell us 30 days before. But most people stay because we're awesome and helpful.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Do you work with my type of business?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes! We work with all kinds of businesses. Shops, restaurants, doctors, services, gyms - everyone! We make each website special for your business.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What if I want to change something on my website?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Just tell us! We change anything you want, anytime. New words, new pages, new pictures - whatever! It's all included.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-contact">
+                    <p><a href="mailto:sales@honeybeewebdesign.com">sales@honeybeewebdesign.com</a></p>
+                    <p><a href="tel:+13366876989">(336) 687-6989</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Honeybee Web Design. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
