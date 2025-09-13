@@ -198,19 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeModalBtn = document.querySelector('.close');
     
     // Function to open modal
-    function openModal(e) {
-        e.preventDefault();
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden'; // Prevent background scrolling
-        
-        // Auto-focus on the first input field
-        setTimeout(() => {
-            const firstInput = modal.querySelector('input[name="name"]');
-            if (firstInput) {
-                firstInput.focus();
-            }
-        }, 100); // Small delay to ensure modal is fully rendered
-    }
+    // (moved above for multi-step form integration)
     
     // Add event listeners to all modal open buttons
     if (openModalBtn && modal) {
@@ -270,6 +258,137 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Contact form functionality
     const contactForms = document.querySelectorAll('#contact-form-element');
+    
+    // Multi-step form functionality
+    let currentStep = 1;
+    const totalSteps = 5;
+    
+    function updateFormStep(step) {
+        const formSteps = document.querySelectorAll('.form-step');
+        const progressFill = document.querySelector('.progress-fill');
+        const backBtn = document.getElementById('form-back');
+        const nextBtn = document.getElementById('form-next');
+        const submitBtn = document.getElementById('form-submit');
+        
+        // Hide all steps
+        formSteps.forEach((stepEl, index) => {
+            stepEl.classList.remove('active', 'prev');
+            if (index + 1 < step) {
+                stepEl.classList.add('prev');
+            } else if (index + 1 === step) {
+                stepEl.classList.add('active');
+            }
+        });
+        
+        // Update progress bar
+        const progressPercent = (step / totalSteps) * 100;
+        progressFill.style.width = progressPercent + '%';
+        
+        // Update button visibility
+        backBtn.style.display = step > 1 ? 'block' : 'none';
+        nextBtn.style.display = step < totalSteps ? 'block' : 'none';
+        submitBtn.style.display = step === totalSteps ? 'block' : 'none';
+        
+        // Focus on the current input
+        setTimeout(() => {
+            const activeStep = document.querySelector('.form-step.active');
+            const input = activeStep.querySelector('input, textarea');
+            if (input) {
+                input.focus();
+            }
+        }, 300);
+    }
+    
+    function validateCurrentStep() {
+        const activeStep = document.querySelector('.form-step.active');
+        const input = activeStep.querySelector('input, textarea');
+        
+        if (input && input.hasAttribute('required')) {
+            if (!input.value.trim()) {
+                input.style.borderColor = '#E53E3E';
+                input.focus();
+                return false;
+            }
+            
+            // Email validation
+            if (input.type === 'email') {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(input.value)) {
+                    input.style.borderColor = '#E53E3E';
+                    input.focus();
+                    return false;
+                }
+            }
+        }
+        
+        if (input) {
+            input.style.borderColor = '#E5E5E7';
+        }
+        return true;
+    }
+    
+    // Next button handler
+    const nextBtn = document.getElementById('form-next');
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (validateCurrentStep() && currentStep < totalSteps) {
+                currentStep++;
+                updateFormStep(currentStep);
+            }
+        });
+    }
+    
+    // Back button handler
+    const backBtn = document.getElementById('form-back');
+    if (backBtn) {
+        backBtn.addEventListener('click', () => {
+            if (currentStep > 1) {
+                currentStep--;
+                updateFormStep(currentStep);
+            }
+        });
+    }
+    
+    // Enter key handler for progression
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && modal && modal.style.display === 'block') {
+            e.preventDefault();
+            if (currentStep < totalSteps) {
+                if (validateCurrentStep()) {
+                    currentStep++;
+                    updateFormStep(currentStep);
+                }
+            } else {
+                // Submit the form
+                document.getElementById('form-submit').click();
+            }
+        }
+    });
+    
+    // Reset form when modal opens
+    function resetMultiStepForm() {
+        currentStep = 1;
+        updateFormStep(currentStep);
+        
+        // Clear all inputs
+        const form = document.getElementById('contact-form-element');
+        if (form) {
+            form.reset();
+            // Reset border colors
+            const inputs = form.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.style.borderColor = '#E5E5E7';
+            });
+        }
+    }
+    
+    // Update modal open functions to reset form
+    function openModal(e) {
+        e.preventDefault();
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        resetMultiStepForm();
+    }
     
     contactForms.forEach(form => {
         if (form) {
