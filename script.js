@@ -37,9 +37,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Testimonial Carousel functionality
     const testimonialSlides = document.querySelectorAll('.testimonial-slide');
     const testimonialDots = document.querySelectorAll('.testimonial-dots .dot');
+    const testimonialContainer = document.querySelector('.testimonial-carousel');
     let currentSlide = 0;
     let testimonialInterval;
     let autoRotateEnabled = true; // Track if auto-rotation should continue
+    let isDragging = false;
+    let startX = 0;
+    let currentX = 0;
+    let threshold = 50; // Minimum distance to trigger swipe
 
     function showTestimonialSlide(index) {
         // Hide all slides
@@ -66,6 +71,11 @@ document.addEventListener('DOMContentLoaded', function() {
         showTestimonialSlide(currentSlide);
     }
 
+    function prevTestimonialSlide() {
+        currentSlide = (currentSlide - 1 + testimonialSlides.length) % testimonialSlides.length;
+        showTestimonialSlide(currentSlide);
+    }
+
     function startTestimonialCarousel() {
         if (autoRotateEnabled) {
             testimonialInterval = setInterval(nextTestimonialSlide, 7000); // Change slide every 7 seconds
@@ -74,6 +84,78 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function stopTestimonialCarousel() {
         clearInterval(testimonialInterval);
+    }
+
+    // Mouse/Touch event handlers
+    function handleStart(e) {
+        isDragging = true;
+        startX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+        currentX = startX;
+        
+        // Stop auto-rotation when user starts interacting
+        if (autoRotateEnabled) {
+            stopTestimonialCarousel();
+        }
+    }
+
+    function handleMove(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        currentX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+    }
+
+    function handleEnd(e) {
+        if (!isDragging) return;
+        isDragging = false;
+        
+        const diff = startX - currentX;
+        
+        // Check if swipe distance exceeds threshold
+        if (Math.abs(diff) > threshold) {
+            if (diff > 0) {
+                // Swiped left - go to next slide
+                nextTestimonialSlide();
+            } else {
+                // Swiped right - go to previous slide
+                prevTestimonialSlide();
+            }
+            
+            // Stop auto-rotation permanently after manual swipe
+            autoRotateEnabled = false;
+        } else {
+            // Resume auto-rotation if it was enabled and swipe was too small
+            if (autoRotateEnabled) {
+                startTestimonialCarousel();
+            }
+        }
+    }
+
+    // Add event listeners for touch/mouse interactions
+    if (testimonialContainer) {
+        // Touch events for mobile
+        testimonialContainer.addEventListener('touchstart', handleStart, { passive: false });
+        testimonialContainer.addEventListener('touchmove', handleMove, { passive: false });
+        testimonialContainer.addEventListener('touchend', handleEnd);
+        
+        // Mouse events for desktop
+        testimonialContainer.addEventListener('mousedown', handleStart);
+        testimonialContainer.addEventListener('mousemove', handleMove);
+        testimonialContainer.addEventListener('mouseup', handleEnd);
+        testimonialContainer.addEventListener('mouseleave', handleEnd); // Handle mouse leaving the area
+        
+        // Prevent text selection while dragging
+        testimonialContainer.addEventListener('selectstart', (e) => {
+            if (isDragging) e.preventDefault();
+        });
+        
+        // Add cursor pointer style
+        testimonialContainer.style.cursor = 'grab';
+        testimonialContainer.addEventListener('mousedown', () => {
+            testimonialContainer.style.cursor = 'grabbing';
+        });
+        testimonialContainer.addEventListener('mouseup', () => {
+            testimonialContainer.style.cursor = 'grab';
+        });
     }
 
     // Add click event listeners to dots
@@ -93,15 +175,15 @@ document.addEventListener('DOMContentLoaded', function() {
         startTestimonialCarousel();
         
         // Pause carousel on hover (only if auto-rotation is still enabled)
-        const testimonialContainer = document.querySelector('.hero-testimonial');
-        if (testimonialContainer) {
-            testimonialContainer.addEventListener('mouseenter', () => {
+        const testimonialContainerElement = document.querySelector('.hero-testimonial');
+        if (testimonialContainerElement) {
+            testimonialContainerElement.addEventListener('mouseenter', () => {
                 if (autoRotateEnabled) {
                     stopTestimonialCarousel();
                 }
             });
-            testimonialContainer.addEventListener('mouseleave', () => {
-                if (autoRotateEnabled) {
+            testimonialContainerElement.addEventListener('mouseleave', () => {
+                if (autoRotateEnabled && !isDragging) {
                     startTestimonialCarousel();
                 }
             });
