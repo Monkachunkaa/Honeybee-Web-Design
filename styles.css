@@ -806,7 +806,7 @@ p { margin-bottom: 1rem; color: #5A5A6B; }
 
 /* Pricing Section */
 .pricing {
-    padding: 80px 0;
+    padding: 80px 0 0;
     background-color: #FFFFFF;
 }
 
@@ -846,7 +846,6 @@ p { margin-bottom: 1rem; color: #5A5A6B; }
     align-items: baseline;
     justify-content: center;
     gap: 8px;
-    margin-bottom: 1rem;
 }
 
 .price-amount {
@@ -872,7 +871,7 @@ p { margin-bottom: 1rem; color: #5A5A6B; }
     padding: 0 2rem;
 }
 
-.feature-category { padding: 2rem; }
+.feature-category { padding: 0 2rem 2rem; }
 
 .feature-category h4 {
     font-size: 1.25rem;
@@ -899,6 +898,7 @@ p { margin-bottom: 1rem; color: #5A5A6B; }
     gap: 12px;
     color: #FFFFFF;
     font-size: 0.95rem;
+    text-align: left;
 }
 
 .feature-category li::before {
@@ -1076,6 +1076,10 @@ p { margin-bottom: 1rem; color: #5A5A6B; }
 /* Responsive Design */
 @media (max-width: 768px) {
     .container { padding: 0 16px; }
+    
+    .pricing .container {
+        padding: 0;
+    }
     .logo {
         width: 180px;
         height: 90px;
@@ -1143,6 +1147,12 @@ p { margin-bottom: 1rem; color: #5A5A6B; }
     .pricing-features {
         grid-template-columns: 1fr;
         gap: 1rem;
+    }
+    
+    .pricing-card {
+        margin: 0;
+        border-radius: 0;
+        max-width: none;
     }
     
     .footer-contact {
@@ -1245,6 +1255,4 @@ p { margin-bottom: 1rem; color: #5A5A6B; }
         padding: 12px 24px;
         font-size: 15px;
     }
-    
-    .pricing-card { margin: 0 1rem; }
 }
