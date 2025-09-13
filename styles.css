@@ -806,7 +806,7 @@ p { margin-bottom: 1rem; color: #5A5A6B; }
 
 /* Pricing Section */
 .pricing {
-    padding: 80px 0 0;
+    padding: 80px 0;
     background-color: #FFFFFF;
 }
 
@@ -1079,6 +1079,10 @@ p { margin-bottom: 1rem; color: #5A5A6B; }
     
     .pricing .container {
         padding: 0;
+    }
+    
+    .pricing {
+        padding: 80px 0 0;
     }
     .logo {
         width: 180px;
