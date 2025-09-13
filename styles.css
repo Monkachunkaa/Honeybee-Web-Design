@@ -1082,7 +1082,7 @@ p { margin-bottom: 1rem; color: #5A5A6B; }
     }
     
     .pricing {
-        padding: 80px 0 0;
+        padding: 0;
     }
     .logo {
         width: 180px;
@@ -1256,7 +1256,7 @@ p { margin-bottom: 1rem; color: #5A5A6B; }
     }
     
     .btn {
-        padding: 12px 24px;
-        font-size: 15px;
+        padding: 18px 36px;
+        font-size: 22px;
     }
 }
