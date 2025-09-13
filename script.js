@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Contact form functionality
-    const contactForms = document.querySelectorAll('#contact-form-element, #contact-form');
+    const contactForms = document.querySelectorAll('#contact-form-element');
     
     contactForms.forEach(form => {
         if (form) {
@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const data = Object.fromEntries(formData.entries());
                 
                 // Simple validation
-                const requiredFields = ['name', 'firstName', 'lastName', 'email', 'message'];
+                const requiredFields = ['name', 'email', 'message'];
                 let isValid = true;
                 
                 requiredFields.forEach(field => {
@@ -321,9 +321,12 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+                const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                const targetPosition = target.offsetTop - navbarHeight - 5; // Add 5px offset
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
                 });
             }
         });
@@ -356,12 +359,30 @@ document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('scroll', updateNavbar);
     } else {
         // Standard navbar behavior for other pages
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 100) {
-                navbar.style.backgroundColor = 'rgba(37, 40, 61, 0.95)';
-            } else {
-                navbar.style.backgroundColor = '#25283D';
+        navbar.classList.add('scrolled');
+    }
+
+    // Timeline scroll animations
+    const timelineItems = document.querySelectorAll('.timeline li');
+    
+    function checkTimelineVisibility() {
+        const triggerBottom = window.innerHeight * 0.8; // Trigger when item is 80% in view
+        
+        timelineItems.forEach((item, index) => {
+            const itemTop = item.getBoundingClientRect().top;
+            
+            if (itemTop < triggerBottom && !item.classList.contains('fade-in')) {
+                // Add a slight stagger delay based on index
+                setTimeout(() => {
+                    item.classList.add('fade-in');
+                }, index * 150); // 150ms delay between each item
             }
         });
     }
+    
+    // Check on scroll
+    window.addEventListener('scroll', checkTimelineVisibility);
+    
+    // Check on initial load
+    checkTimelineVisibility();
 });
