@@ -41,10 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentSlide = 0;
     let testimonialInterval;
     let autoRotateEnabled = true; // Track if auto-rotation should continue
-    let isDragging = false;
-    let startX = 0;
-    let currentX = 0;
-    let threshold = 50; // Minimum distance to trigger swipe
 
     function showTestimonialSlide(index) {
         // Hide all slides
@@ -71,11 +67,6 @@ document.addEventListener('DOMContentLoaded', function() {
         showTestimonialSlide(currentSlide);
     }
 
-    function prevTestimonialSlide() {
-        currentSlide = (currentSlide - 1 + testimonialSlides.length) % testimonialSlides.length;
-        showTestimonialSlide(currentSlide);
-    }
-
     function startTestimonialCarousel() {
         if (autoRotateEnabled) {
             testimonialInterval = setInterval(nextTestimonialSlide, 7000); // Change slide every 7 seconds
@@ -86,81 +77,24 @@ document.addEventListener('DOMContentLoaded', function() {
         clearInterval(testimonialInterval);
     }
 
-    // Mouse/Touch event handlers
-    function handleStart(e) {
-        isDragging = true;
-        startX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
-        currentX = startX;
-        
-        // Stop auto-rotation when user starts interacting
-        if (autoRotateEnabled) {
-            stopTestimonialCarousel();
-        }
-    }
-
-    function handleMove(e) {
-        if (!isDragging) return;
-        e.preventDefault();
-        currentX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
-    }
-
-    function handleEnd(e) {
-        if (!isDragging) return;
-        isDragging = false;
-        
-        const diff = startX - currentX;
-        
-        // Check if swipe distance exceeds threshold
-        if (Math.abs(diff) > threshold) {
-            if (diff > 0) {
-                // Swiped left - go to next slide
-                nextTestimonialSlide();
-            } else {
-                // Swiped right - go to previous slide
-                prevTestimonialSlide();
-            }
-            
-            // Stop auto-rotation permanently after manual swipe
-            autoRotateEnabled = false;
-        } else {
-            // Resume auto-rotation if it was enabled and swipe was too small
-            if (autoRotateEnabled) {
-                startTestimonialCarousel();
-            }
-        }
-    }
-
-    // Add event listeners for touch/mouse interactions
+    // Click handler for testimonial slides
     if (testimonialContainer) {
-        // Touch events for mobile
-        testimonialContainer.addEventListener('touchstart', handleStart, { passive: false });
-        testimonialContainer.addEventListener('touchmove', handleMove, { passive: false });
-        testimonialContainer.addEventListener('touchend', handleEnd);
-        
-        // Mouse events for desktop
-        testimonialContainer.addEventListener('mousedown', handleStart);
-        testimonialContainer.addEventListener('mousemove', handleMove);
-        testimonialContainer.addEventListener('mouseup', handleEnd);
-        testimonialContainer.addEventListener('mouseleave', handleEnd); // Handle mouse leaving the area
-        
-        // Prevent text selection while dragging
-        testimonialContainer.addEventListener('selectstart', (e) => {
-            if (isDragging) e.preventDefault();
+        testimonialContainer.addEventListener('click', () => {
+            nextTestimonialSlide();
+            
+            // Stop auto-rotation permanently when user clicks
+            autoRotateEnabled = false;
+            stopTestimonialCarousel();
         });
         
-        // Add cursor pointer style
-        testimonialContainer.style.cursor = 'grab';
-        testimonialContainer.addEventListener('mousedown', () => {
-            testimonialContainer.style.cursor = 'grabbing';
-        });
-        testimonialContainer.addEventListener('mouseup', () => {
-            testimonialContainer.style.cursor = 'grab';
-        });
+        // Add cursor pointer style to indicate clickability
+        testimonialContainer.style.cursor = 'pointer';
     }
 
     // Add click event listeners to dots
     testimonialDots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
+        dot.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent triggering the container click
             currentSlide = index;
             showTestimonialSlide(currentSlide);
             
@@ -183,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             testimonialContainerElement.addEventListener('mouseleave', () => {
-                if (autoRotateEnabled && !isDragging) {
+                if (autoRotateEnabled) {
                     startTestimonialCarousel();
                 }
             });
@@ -302,10 +236,17 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateCurrentStep() {
         const activeStep = document.querySelector('.form-step.active');
         const input = activeStep.querySelector('input, textarea');
+        const errorMessage = activeStep.querySelector('.error-message');
+        
+        // Clear previous error
+        errorMessage.textContent = '';
+        errorMessage.classList.remove('show');
         
         if (input && input.hasAttribute('required')) {
             if (!input.value.trim()) {
                 input.style.borderColor = '#E53E3E';
+                errorMessage.textContent = 'This field is required';
+                errorMessage.classList.add('show');
                 input.focus();
                 return false;
             }
@@ -315,12 +256,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(input.value)) {
                     input.style.borderColor = '#E53E3E';
+                    errorMessage.textContent = 'Please enter a valid email address';
+                    errorMessage.classList.add('show');
                     input.focus();
                     return false;
                 }
             }
         }
         
+        // Clear error state if validation passes
         if (input) {
             input.style.borderColor = '#E5E5E7';
         }
@@ -370,14 +314,21 @@ document.addEventListener('DOMContentLoaded', function() {
         currentStep = 1;
         updateFormStep(currentStep);
         
-        // Clear all inputs
+        // Clear all inputs and errors
         const form = document.getElementById('contact-form-element');
         if (form) {
             form.reset();
-            // Reset border colors
+            // Reset border colors and error messages
             const inputs = form.querySelectorAll('input, textarea');
+            const errorMessages = form.querySelectorAll('.error-message');
+            
             inputs.forEach(input => {
                 input.style.borderColor = '#E5E5E7';
+            });
+            
+            errorMessages.forEach(error => {
+                error.textContent = '';
+                error.classList.remove('show');
             });
         }
     }
