@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -21,6 +22,32 @@
                     <img src="img/Honeybee Logo - White.png" alt="Honeybee Web Design Logo" class="logo">
                 </a>
             </div>
+
+    <!-- Thank You Modal -->
+    <div id="thank-you-modal" class="modal">
+        <div class="modal-content thank-you-modal-content">
+            <div class="thank-you-header">
+                <img src="img/Honeybee Logo - White.png" alt="Honeybee Web Design Logo" class="thank-you-logo">
+                <span class="close thank-you-close">&times;</span>
+            </div>
+            <div class="thank-you-body">
+                <div class="thank-you-icon">✓</div>
+                <h2 class="thank-you-title">Thank You!</h2>
+                <p class="thank-you-message">We've received your message and we're excited to help bring your vision to life!</p>
+                <div class="thank-you-details">
+                    <div class="thank-you-item">
+                        <strong>What's Next?</strong>
+                        <p>We'll get back to you within <span class="accent">2 hours</span> to discuss your project</p>
+                    </div>
+                    <div class="thank-you-item">
+                        <strong>Quick Questions?</strong>
+                        <p>Call us at <a href="tel:+13366876989" class="accent">(336) 687-6989</a></p>
+                    </div>
+                </div>
+                <button class="btn btn-primary thank-you-btn">Continue Browsing</button>
+            </div>
+        </div>
+    </div>
             <ul class="nav-menu">
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#what-to-expect" class="nav-link">What to Expect</a></li>
@@ -106,7 +133,7 @@
                 </div>
                 <div class="form-step" data-step="2">
                     <div class="form-group">
-                        <input type="text" id="company" name="company" placeholder="Business Name">
+                        <input type="text" id="company" name="company" placeholder="Business Name (if applicable)">
                         <div class="error-message"></div>
                     </div>
                 </div>

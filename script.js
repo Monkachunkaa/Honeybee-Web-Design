@@ -1,6 +1,9 @@
 // Navigation functionality
 document.addEventListener('DOMContentLoaded', function() {
     
+    // Initialize EmailJS with your public key
+    emailjs.init('3bZXI322cqKC56DBj');
+    
     // Mobile menu functionality
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navMenu = document.querySelector('.nav-menu');
@@ -9,6 +12,57 @@ document.addEventListener('DOMContentLoaded', function() {
         mobileMenuBtn.addEventListener('click', function() {
             navMenu.classList.toggle('mobile-open');
         });
+
+    // Thank You Modal functionality
+    const thankYouModal = document.getElementById('thank-you-modal');
+    const thankYouCloseBtn = document.querySelector('.thank-you-close');
+    const thankYouContinueBtn = document.querySelector('.thank-you-btn');
+    
+    function showThankYouModal() {
+        if (thankYouModal) {
+            thankYouModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            // Reset any forms that might still be open
+            const contactForm = document.getElementById('contact-form-element');
+            if (contactForm) {
+                contactForm.reset();
+            }
+        }
+    }
+    
+    function hideThankYouModal() {
+        if (thankYouModal) {
+            thankYouModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    }
+    
+    // Close thank you modal with close button
+    if (thankYouCloseBtn) {
+        thankYouCloseBtn.addEventListener('click', hideThankYouModal);
+    }
+    
+    // Close thank you modal with continue button
+    if (thankYouContinueBtn) {
+        thankYouContinueBtn.addEventListener('click', hideThankYouModal);
+    }
+    
+    // Close thank you modal when clicking outside
+    if (thankYouModal) {
+        window.addEventListener('click', function(e) {
+            if (e.target === thankYouModal) {
+                hideThankYouModal();
+            }
+        });
+    }
+    
+    // Close thank you modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && thankYouModal && thankYouModal.style.display === 'block') {
+            hideThankYouModal();
+        }
+    });
         
         // Close mobile menu when clicking nav links
         const navLinks = navMenu.querySelectorAll('.nav-link');
@@ -346,11 +400,16 @@ document.addEventListener('DOMContentLoaded', function() {
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
+                // Validate the final step
+                if (!validateCurrentStep()) {
+                    return;
+                }
+                
                 // Get form data
                 const formData = new FormData(form);
                 const data = Object.fromEntries(formData.entries());
                 
-                // Simple validation
+                // Simple validation for required fields
                 const requiredFields = ['name', 'email', 'message'];
                 let isValid = true;
                 
@@ -376,11 +435,48 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
                 
-                // Show success message
-                alert('Thank you for your message! We will get back to you within 2 hours.');
+                // Show loading state
+                const submitBtn = document.getElementById('form-submit');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Sending...';
+                submitBtn.disabled = true;
                 
-                // Reset form
-                form.reset();
+                // Prepare template parameters for EmailJS
+                const templateParams = {
+                    name: data.name || 'Not provided',
+                    email: data.email || 'Not provided',
+                    businessname: data.company || 'Not provided',
+                    phone: data.phone || 'Not provided',
+                    message: data.message || 'Not provided',
+                    to_email: 'sales@honeybeewebdesign.com' // Your receiving email
+                };
+                
+                // Send email using EmailJS
+                emailjs.send('honeybee_gmail_service', 'honeybee_notif', templateParams)
+                    .then(function(response) {
+                        console.log('SUCCESS!', response.status, response.text);
+                        
+                        // Close contact form modal
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                        
+                        // Show thank you modal
+                        showThankYouModal();
+                        
+                        // Reset the multi-step form for next time
+                        resetMultiStepForm();
+                        
+                    }, function(error) {
+                        console.log('FAILED...', error);
+                        
+                        // Show error message
+                        alert('Sorry, there was an error sending your message. Please try again or contact us directly at sales@honeybeewebdesign.com');
+                    })
+                    .finally(function() {
+                        // Reset button state
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    });
             });
         }
     });

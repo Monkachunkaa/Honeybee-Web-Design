@@ -696,6 +696,152 @@ p { margin-bottom: 1rem; color: #5A5A6B; }
     box-shadow: 0 6px 16px rgba(253, 164, 0, 0.4);
 }
 
+/* Thank You Modal Styles */
+.thank-you-modal-content {
+    max-width: 500px;
+    background: linear-gradient(135deg, #25283D 0%, #1f2135 100%);
+    color: #FFFFFF;
+    border: 2px solid #FDA400;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(253, 164, 0, 0.3);
+}
+
+.thank-you-header {
+    position: relative;
+    padding: 2rem 2rem 1rem;
+    text-align: center;
+    border-bottom: 2px solid #FDA400;
+    background: linear-gradient(135deg, #FDA400 0%, #E89400 100%);
+}
+
+.thank-you-logo {
+    width: 180px;
+    height: 70px;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* Make logo white on orange background */
+}
+
+.thank-you-close {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    color: #FFFFFF;
+    font-size: 2rem;
+    font-weight: 300;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+    line-height: 1;
+}
+
+.thank-you-close:hover {
+    color: #25283D;
+    transform: scale(1.1);
+}
+
+.thank-you-body {
+    padding: 2rem;
+    text-align: center;
+}
+
+.thank-you-icon {
+    width: 80px;
+    height: 80px;
+    background: #FDA400;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #25283D;
+    margin: 0 auto 1.5rem;
+    animation: thankYouPulse 2s ease-in-out infinite;
+}
+
+@keyframes thankYouPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(253, 164, 0, 0.4);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(253, 164, 0, 0.7);
+    }
+}
+
+.thank-you-title {
+    font-size: 2.5rem;
+    color: #FFFFFF;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.thank-you-message {
+    font-size: 1.125rem;
+    color: #FFFFFF;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    opacity: 0.95;
+}
+
+.thank-you-details {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.thank-you-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(253, 164, 0, 0.3);
+}
+
+.thank-you-item strong {
+    display: block;
+    color: #FDA400;
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.thank-you-item p {
+    color: #FFFFFF;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.thank-you-item a {
+    color: #FDA400;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.thank-you-item a:hover {
+    color: #E89400;
+    text-decoration: underline;
+}
+
+.thank-you-btn {
+    background: #FDA400;
+    color: #25283D;
+    border-color: #FDA400;
+    font-weight: 600;
+    padding: 16px 32px;
+    font-size: 1.125rem;
+    box-shadow: 0 4px 16px rgba(253, 164, 0, 0.4);
+    animation: none; /* Remove the pulse animation for this button */
+}
+
+.thank-you-btn:hover {
+    background: #E89400;
+    color: #25283D;
+    border-color: #E89400;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(253, 164, 0, 0.6);
+}
+
 .section-header {
     text-align: center;
     margin-bottom: 4rem;
