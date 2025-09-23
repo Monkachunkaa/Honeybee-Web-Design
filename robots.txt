@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://honeybeewebdesign.com/sitemap.xml
+
+# Block any admin or private areas (add these if you have such directories)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Allow important files
+Allow: /img/
+Allow: /styles.css
+Allow: /script.js
+
+# Block common spam/unwanted bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /

@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const openModalBtn = document.getElementById('open-modal');
     const navOpenModalBtn = document.getElementById('nav-open-modal');
     const pricingOpenModalBtn = document.getElementById('pricing-open-modal');
-    const closeModalBtn = document.querySelector('.close');
+    const closeModalBtn = document.querySelector('#contact-modal .close');
     
     // Function to open modal
     // (moved above for multi-step form integration)
