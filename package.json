@@ -1,0 +1,15 @@
+{
+  "name": "honeybee-web-design",
+  "version": "1.0.0",
+  "description": "Honeybee Web Design website with Netlify Functions",
+  "scripts": {
+    "build": "echo 'No build step required'",
+    "dev": "netlify dev"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1490.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  }
+}

@@ -1,8 +1,7 @@
 // Navigation functionality
 document.addEventListener('DOMContentLoaded', function() {
     
-    // Initialize EmailJS with your public key
-    emailjs.init('3bZXI322cqKC56DBj');
+    // Contact form now uses Netlify Functions with AWS SES
     
     // Mobile menu functionality
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
@@ -451,10 +450,24 @@ document.addEventListener('DOMContentLoaded', function() {
                     to_email: 'sales@honeybeewebdesign.com' // Your receiving email
                 };
                 
-                // Send email using EmailJS
-                emailjs.send('honeybee_gmail_service', 'honeybee_notif', templateParams)
-                    .then(function(response) {
-                        console.log('SUCCESS!', response.status, response.text);
+                // Send email using Netlify Function with AWS SES
+                fetch('/.netlify/functions/send-contact-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: data.name,
+                        email: data.email,
+                        company: data.company,
+                        phone: data.phone,
+                        message: data.message
+                    })
+                })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        console.log('SUCCESS!', result.messageId);
                         
                         // Close contact form modal
                         modal.style.display = 'none';
@@ -465,18 +478,21 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         // Reset the multi-step form for next time
                         resetMultiStepForm();
-                        
-                    }, function(error) {
-                        console.log('FAILED...', error);
-                        
-                        // Show error message
-                        alert('Sorry, there was an error sending your message. Please try again or contact us directly at sales@honeybeewebdesign.com');
-                    })
-                    .finally(function() {
-                        // Reset button state
-                        submitBtn.textContent = originalText;
-                        submitBtn.disabled = false;
-                    });
+                    } else {
+                        throw new Error(result.error || 'Unknown error');
+                    }
+                })
+                .catch(error => {
+                    console.error('FAILED...', error);
+                    
+                    // Show error message
+                    alert('Sorry, there was an error sending your message. Please try again or contact us directly at jake@honeybeewebdesign.com');
+                })
+                .finally(() => {
+                    // Reset button state
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                });
             });
         }
     });
