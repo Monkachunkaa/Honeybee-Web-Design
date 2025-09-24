@@ -717,7 +717,7 @@ p { margin-bottom: 1rem; color: #5A5A6B; }
     width: 180px;
     height: 70px;
     object-fit: contain;
-    filter: brightness(0) invert(1); /* Make logo white on orange background */
+    /* Logo will show in original colors now */
 }
 
 .thank-you-close {
@@ -738,7 +738,7 @@ p { margin-bottom: 1rem; color: #5A5A6B; }
 }
 
 .thank-you-body {
-    padding: 2rem;
+    padding: 1.5rem;
     text-align: center;
 }
 
@@ -769,7 +769,7 @@ p { margin-bottom: 1rem; color: #5A5A6B; }
 }
 
 .thank-you-title {
-    font-size: 2.5rem;
+    font-size: 2rem;
     color: #FFFFFF;
     margin-bottom: 1rem;
     font-weight: 700;
@@ -778,7 +778,7 @@ p { margin-bottom: 1rem; color: #5A5A6B; }
 .thank-you-message {
     font-size: 1.125rem;
     color: #FFFFFF;
-    margin-bottom: 2rem;
+    margin-bottom: 0;
     line-height: 1.6;
     opacity: 0.95;
 }

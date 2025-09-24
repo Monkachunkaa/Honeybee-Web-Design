@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Thank You Modal functionality
     const thankYouModal = document.getElementById('thank-you-modal');
     const thankYouCloseBtn = document.querySelector('.thank-you-close');
-    const thankYouContinueBtn = document.querySelector('.thank-you-btn');
     
     function showThankYouModal() {
         if (thankYouModal) {
@@ -40,11 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Close thank you modal with close button
     if (thankYouCloseBtn) {
         thankYouCloseBtn.addEventListener('click', hideThankYouModal);
-    }
-    
-    // Close thank you modal with continue button
-    if (thankYouContinueBtn) {
-        thankYouContinueBtn.addEventListener('click', hideThankYouModal);
     }
     
     // Close thank you modal when clicking outside
