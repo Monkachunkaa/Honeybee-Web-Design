@@ -464,7 +464,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         message: data.message
                     })
                 })
-                .then(response => response.json())
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
                 .then(result => {
                     if (result.success) {
                         console.log('SUCCESS!', result.messageId);

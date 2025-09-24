@@ -4,9 +4,9 @@ const path = require('path');
 
 // Configure AWS SES
 const ses = new AWS.SES({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION || 'us-east-1'
+  accessKeyId: process.env.HONEYBEE_AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.HONEYBEE_AWS_SECRET_ACCESS_KEY,
+  region: process.env.HONEYBEE_AWS_REGION || 'us-east-1'
 });
 
 // CORS headers for the response
@@ -18,6 +18,9 @@ const headers = {
 };
 
 exports.handler = async (event, context) => {
+  console.log('Function invoked with method:', event.httpMethod);
+  console.log('Function invoked with body:', event.body);
+  
   // Handle CORS preflight requests
   if (event.httpMethod === 'OPTIONS') {
     return {
@@ -37,6 +40,8 @@ exports.handler = async (event, context) => {
   }
 
   try {
+    console.log('Starting email processing...');
+    
     // Parse the request body
     const data = JSON.parse(event.body);
     
@@ -86,6 +91,35 @@ exports.handler = async (event, context) => {
         minute: '2-digit'
       })
     };
+    
+    // Check if we're in local development (only skip AWS if explicitly using test credentials)
+    const isLocalDev = process.env.HONEYBEE_AWS_ACCESS_KEY_ID.includes('test') ||
+                       process.env.HONEYBEE_AWS_ACCESS_KEY_ID.includes('your_real');
+    
+    if (isLocalDev) {
+      console.log('=== LOCAL DEVELOPMENT MODE ===');
+      console.log('Email would be sent to: jake@honeybeewebdesign.com');
+      console.log('From:', sanitizedData.name, '<' + sanitizedData.email + '>');
+      console.log('Subject: [Honeybee Web Design] New Inquiry from', sanitizedData.name);
+      console.log('Business:', sanitizedData.businessname);
+      console.log('Phone:', sanitizedData.phone);
+      console.log('Message:', sanitizedData.message);
+      console.log('Timestamp:', sanitizedData.timestamp);
+      console.log('==============================');
+      
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({
+          success: true,
+          message: 'Form processed successfully (local dev mode - no email sent)',
+          messageId: 'local-dev-' + Date.now()
+        })
+      };
+    }
+
+    // Production mode - actually send email
+    console.log('Production mode - sending email via AWS SES...');
 
     // Load and process the email template
     let emailTemplate;
