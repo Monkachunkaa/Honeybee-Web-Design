@@ -1,6 +1,4 @@
 const AWS = require('aws-sdk');
-const fs = require('fs');
-const path = require('path');
 
 // Configure AWS SES
 const ses = new AWS.SES({
@@ -121,41 +119,144 @@ exports.handler = async (event, context) => {
     // Production mode - actually send email
     console.log('Production mode - sending email via AWS SES...');
 
-    // Load and process the email template
-    let emailTemplate;
-    try {
-      const templatePath = path.join(process.cwd(), 'templates', 'contact-inquiry-email.html');
-      emailTemplate = fs.readFileSync(templatePath, 'utf8');
-    } catch (error) {
-      console.error('Error loading email template:', error);
-      // Fallback to a simple HTML template if file not found
-      emailTemplate = `
-        <!DOCTYPE html>
-        <html>
-        <head><title>New Inquiry</title></head>
-        <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-          <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-            <h2 style="color: #25283D;">New Website Inquiry</h2>
-            <p><strong>Hello Jake,</strong></p>
-            <p>You've received a new inquiry from your website contact form.</p>
-            <div style="background: #f5f5f5; padding: 15px; border-left: 4px solid #FDA400; margin: 20px 0;">
-              <h3>Contact Details:</h3>
-              <p><strong>Name:</strong> {{name}}</p>
-              <p><strong>Business Name:</strong> {{businessname}}</p>
-              <p><strong>Email:</strong> {{email}}</p>
-              <p><strong>Phone:</strong> {{phone}}</p>
+    // Load the email template (embedded to avoid path issues in production)
+    const emailTemplate = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Inquiry from {{name}} - Honeybee Web Design</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, 'Segoe UI', sans-serif, Arial;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .email-header {
+            background-color: #25283D;
+            padding: 20px;
+            text-align: center;
+        }
+        .email-body {
+            padding: 30px;
+            font-size: 16px;
+        }
+        .contact-details {
+            background-color: #f8f9fa;
+            border-left: 4px solid #FDA400;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .contact-details strong {
+            color: #25283D;
+            display: inline-block;
+            min-width: 120px;
+        }
+        .message-section {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .message-content {
+            font-style: italic;
+            color: #555;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .email-footer {
+            background-color: #25283D;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .highlight {
+            color: #FDA400;
+            font-weight: bold;
+        }
+        .divider {
+            height: 1px;
+            background-color: #e9ecef;
+            margin: 25px 0;
+        }
+        @media (max-width: 600px) {
+            .email-container {
+                margin: 10px;
+                border-radius: 4px;
+            }
+            .email-body {
+                padding: 20px;
+            }
+            .contact-details,
+            .message-section {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <h1 style="color: #FDA400; margin: 0; font-size: 24px;">🐝 New Website Inquiry</h1>
+            <p style="color: #ffffff; margin: 10px 0 0 0; font-size: 14px;">Honeybee Web Design</p>
+        </div>
+        <div class="email-body">
+            <p style="margin-top: 0; font-size: 18px; color: #25283D;"><strong>Hello Jake,</strong></p>
+            <p>You've received a new inquiry from your website contact form. A potential client is interested in your web design services!</p>
+            <div class="contact-details">
+                <h3 style="margin-top: 0; color: #25283D; font-size: 18px;">📋 Contact Details</h3>
+                <p style="margin: 10px 0;"><strong>Name:</strong> {{name}}</p>
+                <p style="margin: 10px 0;"><strong>Business Name:</strong> {{businessname}}</p>
+                <p style="margin: 10px 0;"><strong>Email:</strong> <a href="mailto:{{email}}" style="color: #FDA400; text-decoration: none;">{{email}}</a></p>
+                <p style="margin: 10px 0;"><strong>Phone:</strong> {{phone}}</p>
             </div>
-            <div style="background: #f9f9f9; padding: 15px; margin: 20px 0;">
-              <h3>Message:</h3>
-              <p>{{message}}</p>
+            <div class="message-section">
+                <h3 style="margin-top: 0; color: #25283D; font-size: 18px;">💬 Their Message</h3>
+                <div class="message-content">{{message}}</div>
             </div>
-            <hr>
-            <p><small>This email was sent automatically from your website contact form at {{timestamp}}.</small></p>
-          </div>
-        </body>
-        </html>
-      `;
-    }
+            <div style="text-align: center; margin: 30px 0;">
+                <p style="font-size: 16px; color: #25283D;">
+                    <strong>⏰ Quick Response Tip:</strong> 
+                    <span class="highlight">Respond within 2 hours</span> to maximize conversion!
+                </p>
+                <p style="margin: 15px 0;">
+                    <a href="mailto:{{email}}?subject=Re: Your Website Inquiry - Let's Build Something Amazing!" 
+                       style="background-color: #FDA400; color: #25283D; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">
+                        📧 Reply Now
+                    </a>
+                </p>
+            </div>
+            <div class="divider"></div>
+            <p style="font-size: 14px; color: #666; text-align: center; margin-bottom: 0;">
+                This email was sent automatically from your website contact form.<br>
+                <strong>Website:</strong> honeybeewebdesign.com<br>
+                <strong>Time:</strong> {{timestamp}}
+            </p>
+        </div>
+        <div class="email-footer">
+            <p style="margin: 0; font-size: 14px;">
+                <strong>Honeybee Web Design</strong><br>
+                Professional Web Design Services<br>
+                📞 (336) 687-6989 | 📧 jake@honeybeewebdesign.com
+            </p>
+        </div>
+    </div>
+</body>
+</html>`;
 
     // Replace template variables with actual data
     let processedTemplate = emailTemplate;
