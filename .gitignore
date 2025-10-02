@@ -27,3 +27,6 @@ Thumbs.db
 
 # Netlify
 .netlify/
+
+# Archive files (old test functions and templates)
+_archive_*

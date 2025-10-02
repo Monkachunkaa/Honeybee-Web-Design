@@ -36,7 +36,7 @@
         "name": "Honeybee Web Design",
         "description": "Affordable web design services for small businesses. Professional websites starting at $0 upfront, just $49/month.",
         "telephone": "(336) 687-6989",
-        "email": "sales@honeybeewebdesign.com",
+        "email": "jake@honeybeewebdesign.com",
         "priceRange": "$49/month",
         "serviceType": "Web Design",
         "areaServed": "United States",
@@ -70,7 +70,7 @@
             "@type": "Organization",
             "name": "Honeybee Web Design",
             "telephone": "(336) 687-6989",
-            "email": "sales@honeybeewebdesign.com"
+            "email": "jake@honeybeewebdesign.com"
         },
         "serviceType": "Web Design",
         "description": "Professional affordable web design services for small businesses with no upfront costs",
@@ -96,7 +96,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
     <!-- Navigation -->
@@ -129,7 +129,7 @@
                 <li><a href="#faq" class="nav-link">FAQ</a></li>
                 <li><button id="nav-open-modal" class="nav-link nav-cta">Let's Talk</button></li>
             </ul>
-            <button class="mobile-menu-btn">☰</button>
+            <button class="mobile-menu-btn" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
         </div>
     </nav>
 
@@ -141,13 +141,13 @@
                     <h1 class="hero-title">Affordable Web Design for Small Business: <span class="accent">$0 to Start, Just $49 Per Month</span></h1>
                     
                     <ul class="hero-bullets">
-                        <li><strong>Website + logo built in 7 days</strong> - $0 upfront, pay only if you love it</li>
+                        <li><strong>$0 upfront</strong> - See it first. Pay only if you love it</li>
                         <li><strong>Everything included forever</strong> - Hosting, updates, security - one flat fee</li>
                         <li><strong>Built for local businesses</strong> - Helps customers find and contact you</li>
                     </ul>
                     
                     <div class="hero-cta">
-                        <button id="open-modal" class="btn btn-primary">Start Today - It's Free!</button>
+                        <button id="open-modal" class="btn btn-primary btn-hero-cta">Start Today - It's Free!</button>
                     </div>
                 </div>
                 
@@ -201,32 +201,26 @@
             <form id="contact-form-element">
                 <div class="form-step active" data-step="1">
                     <div class="form-group">
-                        <input type="text" id="name" name="name" placeholder="Your Name" required>
-                        <div class="error-message"></div>
+                        <input type="text" id="name" name="name" placeholder="Your Name" required aria-describedby="name-error" aria-invalid="false">
+                        <div id="name-error" class="error-message" role="alert"></div>
                     </div>
                 </div>
                 <div class="form-step" data-step="2">
                     <div class="form-group">
-                        <input type="text" id="company" name="company" placeholder="Business Name (if applicable)">
-                        <div class="error-message"></div>
+                        <input type="email" id="email" name="email" placeholder="Email" required aria-describedby="email-error" aria-invalid="false">
+                        <div id="email-error" class="error-message" role="alert"></div>
                     </div>
                 </div>
                 <div class="form-step" data-step="3">
                     <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="Email" required>
-                        <div class="error-message"></div>
+                        <input type="tel" id="phone" name="phone" placeholder="Phone Number" aria-describedby="phone-error" aria-invalid="false">
+                        <div id="phone-error" class="error-message" role="alert"></div>
                     </div>
                 </div>
                 <div class="form-step" data-step="4">
                     <div class="form-group">
-                        <input type="tel" id="phone" name="phone" placeholder="Phone Number">
-                        <div class="error-message"></div>
-                    </div>
-                </div>
-                <div class="form-step" data-step="5">
-                    <div class="form-group">
-                        <textarea id="message" name="message" placeholder="Tell us about your website needs..." rows="3" required></textarea>
-                        <div class="error-message"></div>
+                        <textarea id="message" name="message" placeholder="Tell us about your website needs..." rows="3" required aria-describedby="message-error" aria-invalid="false"></textarea>
+                        <div id="message-error" class="error-message" role="alert"></div>
                     </div>
                 </div>
                 <div class="form-navigation">
@@ -272,7 +266,7 @@
                                 <strong>We Build</strong>
                             </div>
                         </div>
-                        <div class="step-desc">We'll create your website and logo. You relax while we handle all the work. <span class="timeline-badge">Days 2-7</span></div>
+                        <div class="step-desc">We'll create your website. You relax while we handle all the work. <span class="timeline-badge">Days 2-7</span></div>
                     </div>
                 </li>
                 
@@ -323,7 +317,7 @@
                     <div class="feature-category">
                         <h4>Complete Package</h4>
                         <ul>
-                            <li>Custom website + professional logo</li>
+                            <li>Custom website + professional logo (if needed)</li>
                             <li>Mobile-friendly design</li>
                             <li>Domain + hosting included forever</li>
                             <li>Unlimited updates</li>
@@ -358,7 +352,7 @@
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p>Everything! Your website, logo, safe hosting, all changes you want, keeping it safe, and help whenever you need it. Nothing extra to pay.</p>
+                        <p>Everything! Your website, logo (if needed), safe hosting, all changes you want, keeping it safe, and help whenever you need it. Nothing extra to pay.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -415,7 +409,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-contact">
-                    <p><a href="mailto:sales@honeybeewebdesign.com">sales@honeybeewebdesign.com</a></p>
+                    <p><a href="mailto:jake@honeybeewebdesign.com">jake@honeybeewebdesign.com</a></p>
                     <p><a href="tel:+13366876989">(336) 687-6989</a></p>
                 </div>
             </div>
@@ -425,6 +419,13 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- Load JavaScript modules -->
+    <script src="js/navigation.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/contact-form.js"></script>
+    <script src="js/testimonial-carousel.js"></script>
+    <script src="js/faq.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

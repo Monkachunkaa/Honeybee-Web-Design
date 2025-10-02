@@ -1,0 +1,329 @@
+/**
+ * Form Components
+ * Form inputs, validation, and multi-step form styles
+ */
+
+/* === FORM GROUP === */
+.form-group {
+    margin-bottom: var(--spacing-lg);
+    position: relative;
+}
+
+/* === INPUT STYLES === */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.875rem 1rem; /* 14px 16px */
+    border: var(--border-width-thick) solid var(--color-border);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-base);
+    font-family: var(--font-primary);
+    background-color: var(--color-white);
+    transition: all var(--transition-base);
+    appearance: none;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.form-group input:hover,
+.form-group select:hover,
+.form-group textarea:hover {
+    border-color: var(--color-primary);
+}
+
+/* === INPUT STATES === */
+.form-group input[aria-invalid="true"],
+.form-group select[aria-invalid="true"],
+.form-group textarea[aria-invalid="true"] {
+    border-color: var(--color-error);
+}
+
+.form-group input[aria-invalid="true"]:focus,
+.form-group select[aria-invalid="true"]:focus,
+.form-group textarea[aria-invalid="true"]:focus {
+    box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
+}
+
+/* === TEXTAREA SPECIFIC === */
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+    line-height: var(--line-height-normal);
+}
+
+.modal .form-group textarea {
+    min-height: 100px;
+}
+
+/* === MODAL FORM STYLES === */
+.modal .form-group input,
+.modal .form-group select,
+.modal .form-group textarea {
+    padding: 1rem 1.25rem; /* 16px 20px */
+    font-size: var(--font-size-base);
+}
+
+/* === ERROR MESSAGES === */
+.error-message {
+    color: var(--color-error);
+    font-size: var(--font-size-sm);
+    margin-top: 0.3125rem; /* 5px */
+    min-height: 1.25rem; /* 20px */
+    opacity: 0;
+    transition: opacity var(--transition-base);
+    line-height: 1.4;
+}
+
+.error-message.show {
+    opacity: 1;
+}
+
+/* === SUCCESS MESSAGES === */
+.success-message {
+    color: var(--color-success);
+    font-size: var(--font-size-sm);
+    margin-top: 0.3125rem; /* 5px */
+    line-height: 1.4;
+}
+
+/* === FORM ERROR STATE === */
+.form-error-message {
+    background: var(--color-error-bg);
+    border: var(--border-width) solid var(--color-error-border);
+    color: #c33;
+    padding: var(--spacing-base);
+    border-radius: var(--border-radius-base);
+    margin: var(--spacing-base) 0;
+    text-align: center;
+    font-size: var(--font-size-sm);
+    display: none;
+}
+
+.form-error-message.show {
+    display: block;
+}
+
+/* === MULTI-STEP FORM === */
+.form-step {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    transform: translateX(30px);
+    transition: all var(--transition-base);
+    min-height: 120px;
+    pointer-events: none;
+    box-sizing: border-box;
+}
+
+.form-step.active {
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+.form-step.prev {
+    transform: translateX(-30px);
+}
+
+/* === FORM NAVIGATION === */
+.form-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding-top: var(--spacing-base);
+    border-top: var(--border-width) solid var(--color-border);
+    box-sizing: border-box;
+}
+
+.form-navigation .btn {
+    flex: 1;
+    min-width: 100px;
+    max-width: 180px;
+    padding: 0.75rem 1.25rem;
+    font-size: var(--font-size-sm);
+    box-sizing: border-box;
+}
+
+/* === PROGRESS BAR === */
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background-color: var(--color-border);
+    border-radius: var(--border-radius-sm);
+    margin-bottom: var(--spacing-lg);
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--color-primary);
+    width: 20%;
+    transition: width var(--transition-base);
+    border-radius: var(--border-radius-sm);
+}
+
+/* === FORM LABELS === */
+.form-label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-sm);
+}
+
+.form-label.required::after {
+    content: " *";
+    color: var(--color-error);
+}
+
+/* === INPUT GROUPS === */
+.input-group {
+    position: relative;
+    display: flex;
+}
+
+.input-group-prepend,
+.input-group-append {
+    display: flex;
+    align-items: center;
+    padding: 0 0.75rem;
+    background-color: var(--color-background);
+    border: var(--border-width-thick) solid var(--color-border);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+.input-group-prepend {
+    border-right: none;
+    border-radius: var(--border-radius-md) 0 0 var(--border-radius-md);
+}
+
+.input-group-append {
+    border-left: none;
+    border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+}
+
+.input-group input {
+    border-radius: 0;
+}
+
+.input-group input:first-child {
+    border-radius: var(--border-radius-md) 0 0 var(--border-radius-md);
+}
+
+.input-group input:last-child {
+    border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+}
+
+/* === CHECKBOX & RADIO === */
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-base);
+}
+
+.form-check input[type="checkbox"],
+.form-check input[type="radio"] {
+    width: auto;
+    margin: 0;
+}
+
+.form-check-label {
+    margin: 0;
+    font-weight: var(--font-weight-normal);
+    cursor: pointer;
+    line-height: var(--line-height-normal);
+}
+
+/* === SELECT DROPDOWN === */
+.form-group select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.75rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+}
+
+/* === FORM VALIDATION STYLES === */
+.form-group.has-error input,
+.form-group.has-error select,
+.form-group.has-error textarea {
+    border-color: var(--color-error);
+}
+
+.form-group.has-success input,
+.form-group.has-success select,
+.form-group.has-success textarea {
+    border-color: var(--color-success);
+}
+
+/* === FLOATING LABELS === */
+.form-floating {
+    position: relative;
+}
+
+.form-floating input,
+.form-floating textarea {
+    padding: 1rem 0.75rem 0.25rem 0.75rem;
+}
+
+.form-floating label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding: 1rem 0.75rem;
+    pointer-events: none;
+    border: var(--border-width) solid transparent;
+    transform-origin: 0 0;
+    transition: all var(--transition-base);
+    color: var(--color-text-secondary);
+}
+
+.form-floating input:focus ~ label,
+.form-floating input:not(:placeholder-shown) ~ label,
+.form-floating textarea:focus ~ label,
+.form-floating textarea:not(:placeholder-shown) ~ label {
+    opacity: 0.65;
+    transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+}
+
+/* === RESPONSIVE FORM STYLES === */
+@media (max-width: 768px) {
+    .modal .form-group input,
+    .modal .form-group select,
+    .modal .form-group textarea {
+        padding: 0.875rem 1rem; /* 14px 16px */
+    }
+    
+    .form-navigation {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+    
+    .form-navigation .btn {
+        width: 100%;
+        flex: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-group {
+        margin-bottom: var(--spacing-base);
+    }
+}

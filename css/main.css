@@ -1,0 +1,37 @@
+/**
+ * Honeybee Web Design - Main Stylesheet
+ * Professional modular CSS architecture
+ * 
+ * Load order is important for proper cascading
+ */
+
+/* === FOUNDATION === */
+@import url('variables.css');    /* Design tokens & CSS custom properties */
+@import url('base.css');         /* Reset, typography, and base styles */
+
+/* === LAYOUT === */
+@import url('layout.css');       /* Container, grid, utilities */
+
+/* === COMPONENTS === */
+@import url('buttons.css');      /* Button styles and variations */
+@import url('forms.css');        /* Form inputs and validation */
+@import url('modals.css');       /* Modal dialogs and overlays */
+
+/* === SECTIONS === */
+@import url('navigation.css');   /* Header, navbar, mobile menu */
+@import url('sections.css');     /* Hero, pricing, FAQ, footer */
+
+/* === UTILITIES & OVERRIDES === */
+/* Additional utility classes can be added here */
+
+/* === PRINT STYLES === */
+/* Print-specific styles are included in base.css */
+
+/* === PERFORMANCE OPTIMIZATIONS === */
+/* 
+ * The modular approach allows for:
+ * - Better caching (individual files can be cached separately)
+ * - Easier maintenance (find styles quickly)
+ * - Better organization (logical separation)
+ * - Future scalability (add new modules easily)
+ */

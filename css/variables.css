@@ -1,0 +1,190 @@
+/**
+ * CSS Variables & Design Tokens
+ * Central place for all design system values
+ */
+
+:root {
+  /* === COLORS === */
+  /* Brand Colors */
+  --color-primary: #FDA400;
+  --color-primary-hover: #E89400;
+  --color-primary-light: rgba(253, 164, 0, 0.1);
+  --color-primary-glow: rgba(253, 164, 0, 0.4);
+  
+  /* CTA Button Colors */
+  --color-cta: #2ECC71;
+  --color-cta-hover: #27AE60;
+  --color-cta-light: rgba(46, 204, 113, 0.1);
+  --color-cta-glow: rgba(46, 204, 113, 0.4);
+  
+  /* Neutral Colors */
+  --color-dark: #25283D;
+  --color-dark-light: #1f2135;
+  --color-white: #FFFFFF;
+  --color-off-white: #FFFEF2;
+  --color-background: #F8F8FA;
+  
+  /* Text Colors */
+  --color-text-primary: #25283D;
+  --color-text-secondary: #5A5A6B;
+  --color-text-muted: #8B8B9A;
+  
+  /* Border Colors */
+  --color-border: #E5E5E7;
+  --color-border-focus: var(--color-primary);
+  
+  /* Status Colors */
+  --color-error: #E53E3E;
+  --color-error-bg: #fee;
+  --color-error-border: #fcc;
+  --color-success: #38A169;
+  
+  /* === TYPOGRAPHY === */
+  /* Font Families */
+  --font-primary: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-heading: 'Cairo', sans-serif;
+  
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.5rem;    /* 24px */
+  --font-size-3xl: 2rem;      /* 32px */
+  --font-size-4xl: 2.5rem;    /* 40px */
+  --font-size-5xl: 3rem;      /* 48px */
+  
+  /* Font Weights */
+  --font-weight-light: 200;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+  
+  /* Line Heights */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.6;
+  --line-height-relaxed: 1.8;
+  
+  /* === SPACING === */
+  --spacing-xs: 0.25rem;   /* 4px */
+  --spacing-sm: 0.5rem;    /* 8px */
+  --spacing-md: 0.75rem;   /* 12px */
+  --spacing-base: 1rem;    /* 16px */
+  --spacing-lg: 1.5rem;    /* 24px */
+  --spacing-xl: 2rem;      /* 32px */
+  --spacing-2xl: 3rem;     /* 48px */
+  --spacing-3xl: 4rem;     /* 64px */
+  --spacing-4xl: 5rem;     /* 80px */
+  
+  /* === LAYOUT === */
+  /* Container Sizes */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1400px;
+  --container-3xl: 1600px;
+  --container-4xl: 1920px;
+  
+  /* Grid & Flexbox */
+  --grid-gap: var(--spacing-lg);
+  --flex-gap: var(--spacing-base);
+  
+  /* === BORDERS & RADIUS === */
+  --border-width: 1px;
+  --border-width-thick: 2px;
+  --border-width-thicker: 4px;
+  
+  --border-radius-sm: 4px;
+  --border-radius-base: 6px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+  --border-radius-full: 9999px;
+  
+  /* === SHADOWS === */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-base: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+  
+  /* Custom Shadows */
+  --shadow-glow: 0 0 20px var(--color-primary-glow);
+  --shadow-glow-hover: 0 0 30px rgba(253, 164, 0, 0.6);
+  
+  /* === TRANSITIONS === */
+  --transition-fast: 0.15s ease-out;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease-in-out;
+  
+  /* === Z-INDEX === */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-toast: 1080;
+  
+  /* === BREAKPOINTS (for reference) === */
+  /* These can't be used in CSS directly but are documented for consistency */
+  /*
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1400px;
+  --breakpoint-3xl: 1600px;
+  --breakpoint-4xl: 1920px;
+  */
+}
+
+/* === RESPONSIVE DESIGN TOKENS === */
+/* Adjust design tokens for different screen sizes */
+
+@media (min-width: 1400px) {
+  :root {
+    --font-size-3xl: 2.25rem;  /* 36px */
+    --font-size-4xl: 2.75rem;  /* 44px */
+    --font-size-5xl: 3.25rem;  /* 52px */
+  }
+}
+
+@media (min-width: 1600px) {
+  :root {
+    --font-size-3xl: 2.5rem;   /* 40px */
+    --font-size-4xl: 3rem;     /* 48px */
+    --font-size-5xl: 3.5rem;   /* 56px */
+    --spacing-3xl: 5rem;       /* 80px */
+    --spacing-4xl: 6rem;       /* 96px */
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --font-size-3xl: 2.75rem;  /* 44px */
+    --font-size-4xl: 3.25rem;  /* 52px */
+    --font-size-5xl: 4rem;     /* 64px */
+    --spacing-3xl: 6rem;       /* 96px */
+    --spacing-4xl: 8rem;       /* 128px */
+  }
+}
+
+/* === DARK MODE SUPPORT === */
+/* Prepared for future dark mode implementation */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Uncomment when implementing dark mode */
+    /*
+    --color-background: #1a1a1a;
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #a0a0a0;
+    */
+  }
+}
