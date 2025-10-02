@@ -16,9 +16,6 @@ const headers = {
 };
 
 exports.handler = async (event, context) => {
-  console.log('Function invoked with method:', event.httpMethod);
-  console.log('Function invoked with body:', event.body);
-  
   // Handle CORS preflight requests
   if (event.httpMethod === 'OPTIONS') {
     return {
@@ -38,8 +35,6 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    console.log('Starting email processing...');
-    
     // Parse the request body
     const data = JSON.parse(event.body);
     
@@ -91,19 +86,22 @@ exports.handler = async (event, context) => {
     };
     
     // Check if we're in local development (only skip AWS if explicitly using test credentials)
-    const isLocalDev = process.env.HONEYBEE_AWS_ACCESS_KEY_ID.includes('test') ||
-                       process.env.HONEYBEE_AWS_ACCESS_KEY_ID.includes('your_real');
+    const isLocalDev = process.env.HONEYBEE_AWS_ACCESS_KEY_ID?.includes('test') ||
+                       process.env.HONEYBEE_AWS_ACCESS_KEY_ID?.includes('your_real');
     
     if (isLocalDev) {
-      console.log('=== LOCAL DEVELOPMENT MODE ===');
-      console.log('Email would be sent to: jake@honeybeewebdesign.com');
-      console.log('From:', sanitizedData.name, '<' + sanitizedData.email + '>');
-      console.log('Subject: [Honeybee Web Design] New Inquiry from', sanitizedData.name);
-      console.log('Business:', sanitizedData.businessname);
-      console.log('Phone:', sanitizedData.phone);
-      console.log('Message:', sanitizedData.message);
-      console.log('Timestamp:', sanitizedData.timestamp);
-      console.log('==============================');
+      // Local development mode - log for debugging
+      if (process.env.NODE_ENV !== 'production') {
+        console.log('=== LOCAL DEVELOPMENT MODE ===');
+        console.log('Email would be sent to: jake@honeybeewebdesign.com');
+        console.log('From:', sanitizedData.name, '<' + sanitizedData.email + '>');
+        console.log('Subject: [Honeybee Web Design] New Inquiry from', sanitizedData.name);
+        console.log('Business:', sanitizedData.businessname);
+        console.log('Phone:', sanitizedData.phone);
+        console.log('Message:', sanitizedData.message);
+        console.log('Timestamp:', sanitizedData.timestamp);
+        console.log('==============================');
+      }
       
       return {
         statusCode: 200,
@@ -117,8 +115,6 @@ exports.handler = async (event, context) => {
     }
 
     // Production mode - actually send email
-    console.log('Production mode - sending email via AWS SES...');
-
     // Load the email template (embedded to avoid path issues in production)
     const emailTemplate = `<!DOCTYPE html>
 <html lang="en">
@@ -310,8 +306,6 @@ This email was sent automatically from your website contact form at ${sanitizedD
 
     // Send the email
     const result = await ses.sendEmail(emailParams).promise();
-    
-    console.log('Email sent successfully:', result.MessageId);
 
     // Return success response
     return {

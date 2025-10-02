@@ -58,8 +58,6 @@ class ContactForm {
                     message: data.message
                 })
             });
-
-            console.log('Response status:', response.status);
             
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -68,7 +66,14 @@ class ContactForm {
             const result = await response.json();
 
             if (result.success) {
-                console.log('SUCCESS!', result.messageId);
+                // Track successful form submission
+                if (window.gtag) {
+                    gtag('event', 'Form_Success', {
+                        event_category: 'conversion',
+                        event_label: 'Contact Form Successfully Submitted',
+                        value: 1
+                    });
+                }
                 
                 // Close contact form modal
                 this.modalManager.closeContactModal();
@@ -82,8 +87,6 @@ class ContactForm {
                 throw new Error(result.error || 'Unknown error');
             }
         } catch (error) {
-            console.error('FAILED...', error);
-            
             // Show user-friendly error message
             this.showErrorMessage('Sorry, there was an error sending your message. Please try again or contact us directly at jake@honeybeewebdesign.com');
         } finally {

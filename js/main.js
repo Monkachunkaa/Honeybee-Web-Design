@@ -24,8 +24,6 @@ class HoneybeeWebsite {
             
             // Mark as initialized
             this.isInitialized = true;
-            
-            console.log('🐝 Honeybee Web Design website initialized successfully');
         } catch (error) {
             console.error('❌ Error initializing website:', error);
         }
@@ -36,37 +34,41 @@ class HoneybeeWebsite {
             // Initialize Navigation
             if (window.Navigation) {
                 this.modules.navigation = new window.Navigation();
-                console.log('✅ Navigation module initialized');
             }
 
             // Initialize Modal Manager
             if (window.ModalManager) {
                 this.modules.modalManager = new window.ModalManager();
-                console.log('✅ Modal Manager initialized');
             }
 
             // Initialize Contact Form (depends on Modal Manager)
             if (window.ContactForm && this.modules.modalManager) {
                 this.modules.contactForm = new window.ContactForm(this.modules.modalManager);
-                console.log('✅ Contact Form initialized');
             }
 
             // Initialize Testimonial Carousel
             if (window.TestimonialCarousel) {
                 this.modules.testimonialCarousel = new window.TestimonialCarousel();
-                console.log('✅ Testimonial Carousel initialized');
             }
 
             // Initialize FAQ
             if (window.FAQ) {
                 this.modules.faq = new window.FAQ();
-                console.log('✅ FAQ module initialized');
             }
 
             // Initialize Animations
             if (window.Animations) {
                 this.modules.animations = new window.Animations();
-                console.log('✅ Animations module initialized');
+            }
+
+            // Initialize YouTube Lazy Load
+            if (window.YouTubeLazyLoad) {
+                this.modules.youtubeLazyLoad = new window.YouTubeLazyLoad();
+            }
+
+            // Initialize Analytics Tracker
+            if (window.AnalyticsTracker) {
+                this.modules.analyticsTracker = new window.AnalyticsTracker();
             }
 
         } catch (error) {
@@ -89,8 +91,6 @@ class HoneybeeWebsite {
         
         this.modules = {};
         this.isInitialized = false;
-        
-        console.log('🧹 Honeybee Website modules cleaned up');
     }
 
     // Method to reinitialize if needed

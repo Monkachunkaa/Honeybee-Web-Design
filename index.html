@@ -12,6 +12,9 @@
     <meta name="author" content="Honeybee Web Design">
     <meta name="robots" content="index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large">
     
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://honeybeewebdesign.com/">
+    
     <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Affordable Web Design | $0 to Start, $49/Month">
@@ -21,6 +24,7 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
+    <meta property="og:url" content="https://honeybeewebdesign.com/">
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -92,11 +96,29 @@
     }
     </script>
     <link rel="icon" type="image/png" href="img/favicon.png">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XVMZ4E6DVB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XVMZ4E6DVB');
+    </script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/main.css">
+    <!-- CSS Files - Direct linking for better performance -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/modals.css">
+    <link rel="stylesheet" href="css/navigation.css">
+    <link rel="stylesheet" href="css/sections.css">
 </head>
 <body>
     <!-- Navigation -->
@@ -104,7 +126,7 @@
         <div class="container nav-container">
             <div class="nav-logo">
                 <a href="index.html">
-                    <img src="img/Honeybee Logo - White.png" alt="Affordable Web Design Services - Honeybee Web Design Logo" class="logo">
+                    <img src="img/Honeybee Logo - White.png" alt="Honeybee Web Design" class="logo">
                 </a>
             </div>
 
@@ -112,7 +134,7 @@
     <div id="thank-you-modal" class="modal">
         <div class="modal-content thank-you-modal-content">
             <div class="thank-you-header">
-                <img src="img/Honeybee Logo - White.png" alt="Affordable Web Design Services - Honeybee Web Design" class="thank-you-logo">
+                <img src="img/Honeybee Logo - White.png" alt="Honeybee Web Design" class="thank-you-logo">
                 <span class="close thank-you-close">&times;</span>
             </div>
             <div class="thank-you-body">
@@ -153,7 +175,17 @@
                 
                 <!-- YouTube Video Embed -->
                 <div class="hero-video">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/FhJZqbZizso" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <div class="video-wrapper" data-video-id="FhJZqbZizso">
+                        <div class="video-placeholder">
+                            <img src="https://img.youtube.com/vi/FhJZqbZizso/maxresdefault.jpg" alt="Honeybee Web Design Introduction Video" class="video-thumbnail">
+                            <button class="video-play-button" aria-label="Play video">
+                                <svg width="68" height="48" viewBox="0 0 68 48">
+                                    <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"></path>
+                                    <path d="M 45,24 27,14 27,34" fill="#fff"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -426,6 +458,8 @@
     <script src="js/testimonial-carousel.js"></script>
     <script src="js/faq.js"></script>
     <script src="js/animations.js"></script>
+    <script src="js/youtube-lazy-load.js"></script>
+    <script src="js/analytics.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

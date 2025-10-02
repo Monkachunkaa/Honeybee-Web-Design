@@ -9,7 +9,7 @@
         <loc>https://honeybeewebdesign.com/</loc>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
-        <lastmod>2025-09-19</lastmod>
+        <lastmod>2025-10-02</lastmod>
     </url>
     
     <!-- Section: What to Expect -->
@@ -17,7 +17,7 @@
         <loc>https://honeybeewebdesign.com/#what-to-expect</loc>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
-        <lastmod>2025-09-19</lastmod>
+        <lastmod>2025-10-02</lastmod>
     </url>
     
     <!-- Section: Pricing -->
@@ -25,7 +25,7 @@
         <loc>https://honeybeewebdesign.com/#pricing</loc>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
-        <lastmod>2025-09-19</lastmod>
+        <lastmod>2025-10-02</lastmod>
     </url>
     
     <!-- Section: FAQ -->
@@ -33,7 +33,7 @@
         <loc>https://honeybeewebdesign.com/#faq</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
-        <lastmod>2025-09-19</lastmod>
+        <lastmod>2025-10-02</lastmod>
     </url>
     
     <!-- Images for image search SEO -->
@@ -41,14 +41,14 @@
         <loc>https://honeybeewebdesign.com/img/honeybee_logo.png</loc>
         <changefreq>yearly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2025-09-19</lastmod>
+        <lastmod>2025-10-02</lastmod>
     </url>
     
     <url>
         <loc>https://honeybeewebdesign.com/img/Honeybee%20Logo%20-%20White.png</loc>
         <changefreq>yearly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2025-09-19</lastmod>
+        <lastmod>2025-10-02</lastmod>
     </url>
     
 </urlset>

@@ -124,6 +124,14 @@ class ModalManager {
         this.contactModal.style.display = 'block';
         document.body.style.overflow = 'hidden';
         this.resetMultiStepForm();
+        
+        // Track modal open
+        if (window.gtag) {
+            gtag('event', 'Modal_Open', {
+                event_category: 'engagement',
+                event_label: 'Contact Form Modal Opened'
+            });
+        }
     }
 
     closeContactModal() {
