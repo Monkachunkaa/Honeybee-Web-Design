@@ -68,10 +68,16 @@ class ContactForm {
             if (result.success) {
                 // Track successful form submission
                 if (window.gtag) {
+                    // Google Analytics event tracking
                     gtag('event', 'Form_Success', {
                         event_category: 'conversion',
                         event_label: 'Contact Form Successfully Submitted',
                         value: 1
+                    });
+                    
+                    // Google Ads conversion tracking
+                    gtag('event', 'conversion', {
+                        'send_to': 'AW-738689668/Qo67CJa80qYbEISFnuAC'
                     });
                 }
                 
