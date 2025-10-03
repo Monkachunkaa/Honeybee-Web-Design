@@ -16,10 +16,17 @@
     backdrop-filter: blur(5px);
 }
 
+/* When modal is shown, use flex to center content */
+.modal[style*="display: block"] {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
 /* === MODAL CONTENT === */
 .modal-content {
     background-color: var(--color-white);
-    margin: 2% auto;
+    margin: auto;
     padding: 0;
     border-radius: var(--border-radius-xl);
     width: 90%;
@@ -244,7 +251,7 @@
 /* === MODAL RESPONSIVE STYLES === */
 @media (max-width: 768px) {
     .modal-content {
-        margin: 10% auto;
+        margin: auto;
         width: 95%;
         max-width: none;
     }
@@ -268,7 +275,7 @@
 
 @media (max-width: 480px) {
     .modal-content {
-        margin: 5% auto;
+        margin: auto;
         width: 98%;
         max-width: none;
     }
