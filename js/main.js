@@ -116,6 +116,13 @@ window.addEventListener('unhandledrejection', (event) => {
     console.error('🚨 Unhandled Promise Rejection:', event.reason);
 });
 
+// Update footer copyright year dynamically
+const footerYear = document.getElementById('footer-year');
+if (footerYear) {
+    const year = new Date().getFullYear();
+    footerYear.innerHTML = `&copy; ${year} Honeybee Web Design. All rights reserved.`;
+}
+
 // Create and initialize the application
 const honeybeeWebsite = new HoneybeeWebsite();
 
