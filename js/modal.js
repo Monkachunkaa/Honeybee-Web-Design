@@ -6,6 +6,8 @@ class ModalManager {
     constructor() {
         this.contactModal = document.getElementById('contact-modal');
         this.thankYouModal = document.getElementById('thank-you-modal');
+        this.portfolioModal = document.getElementById('portfolio-modal');
+        this.lastFocusedTrigger = null;
         this.currentStep = 1;
         this.totalSteps = 4;
         
@@ -15,6 +17,7 @@ class ModalManager {
     init() {
         this.setupContactModal();
         this.setupThankYouModal();
+        this.setupPortfolioModal();
         this.setupMultiStepForm();
         this.setupKeyboardHandlers();
     }
@@ -64,6 +67,79 @@ class ModalManager {
         });
     }
 
+    setupPortfolioModal() {
+        if (!this.portfolioModal) return;
+
+        this.portfolioImg = this.portfolioModal.querySelector('.portfolio-modal-img');
+        this.portfolioTitle = this.portfolioModal.querySelector('.portfolio-modal-title');
+        this.portfolioBody = this.portfolioModal.querySelector('.portfolio-modal-body');
+
+        // Open the lightbox from any portfolio card
+        document.querySelectorAll('.browser-mockup[data-screenshot]').forEach(trigger => {
+            trigger.addEventListener('click', () => this.openPortfolioModal(trigger));
+        });
+
+        // Close button
+        const closeBtn = this.portfolioModal.querySelector('.portfolio-modal-close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => this.closePortfolioModal());
+        }
+
+        // Click outside to close
+        window.addEventListener('click', (e) => {
+            if (e.target === this.portfolioModal) {
+                this.closePortfolioModal();
+            }
+        });
+    }
+
+    openPortfolioModal(trigger) {
+        if (!this.portfolioModal) return;
+
+        const src = trigger.getAttribute('data-screenshot');
+        const title = trigger.getAttribute('data-title') || '';
+
+        this.lastFocusedTrigger = trigger;
+
+        if (this.portfolioImg && src) {
+            this.portfolioImg.src = src;
+            this.portfolioImg.alt = title ? `${title} \u2014 full site screenshot` : 'Full site screenshot';
+        }
+        if (this.portfolioTitle) {
+            this.portfolioTitle.textContent = title;
+        }
+
+        this.portfolioModal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+
+        // Always start scrolled to the top of the screenshot
+        if (this.portfolioBody) this.portfolioBody.scrollTop = 0;
+
+        // Move focus into the modal for keyboard users
+        const closeBtn = this.portfolioModal.querySelector('.portfolio-modal-close');
+        if (closeBtn) closeBtn.focus();
+
+        if (window.gtag) {
+            gtag('event', 'Portfolio_View', {
+                event_category: 'engagement',
+                event_label: title || 'Portfolio screenshot viewed'
+            });
+        }
+    }
+
+    closePortfolioModal() {
+        if (!this.portfolioModal) return;
+
+        this.portfolioModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+
+        // Return focus to the card that opened the modal
+        if (this.lastFocusedTrigger) {
+            this.lastFocusedTrigger.focus();
+            this.lastFocusedTrigger = null;
+        }
+    }
+
     setupMultiStepForm() {
         const nextBtn = document.getElementById('form-next');
         const backBtn = document.getElementById('form-back');
@@ -91,7 +167,9 @@ class ModalManager {
         // Escape key handler
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                if (this.thankYouModal && this.thankYouModal.style.display === 'block') {
+                if (this.portfolioModal && this.portfolioModal.style.display === 'block') {
+                    this.closePortfolioModal();
+                } else if (this.thankYouModal && this.thankYouModal.style.display === 'block') {
                     this.closeThankYouModal();
                 } else if (this.contactModal && this.contactModal.style.display === 'block') {
                     this.closeContactModal();

@@ -1,10 +1,12 @@
-const AWS = require('aws-sdk');
+const { SESClient, SendEmailCommand } = require('@aws-sdk/client-ses');
 
-// Configure AWS SES
-const ses = new AWS.SES({
-  accessKeyId: process.env.HONEYBEE_AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.HONEYBEE_AWS_SECRET_ACCESS_KEY,
-  region: process.env.HONEYBEE_AWS_REGION || 'us-east-1'
+// Configure AWS SES (AWS SDK v3)
+const ses = new SESClient({
+  region: process.env.HONEYBEE_AWS_REGION || 'us-east-1',
+  credentials: {
+    accessKeyId: process.env.HONEYBEE_AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.HONEYBEE_AWS_SECRET_ACCESS_KEY
+  }
 });
 
 // CORS headers for the response
@@ -71,7 +73,6 @@ exports.handler = async (event, context) => {
 
     const sanitizedData = {
       name: sanitize(data.name),
-      businessname: sanitize(data.company) || sanitize(data.businessname) || 'Not provided',
       email: sanitize(data.email),
       phone: sanitize(data.phone) || 'Not provided',
       message: sanitize(data.message),
@@ -96,7 +97,6 @@ exports.handler = async (event, context) => {
         console.log('Email would be sent to: jake@honeybeewebdesign.com');
         console.log('From:', sanitizedData.name, '<' + sanitizedData.email + '>');
         console.log('Subject: [Honeybee Web Design] New Inquiry from', sanitizedData.name);
-        console.log('Business:', sanitizedData.businessname);
         console.log('Phone:', sanitizedData.phone);
         console.log('Message:', sanitizedData.message);
         console.log('Timestamp:', sanitizedData.timestamp);
@@ -216,7 +216,6 @@ exports.handler = async (event, context) => {
             <div class="contact-details">
                 <h3 style="margin-top: 0; color: #25283D; font-size: 18px;">📋 Contact Details</h3>
                 <p style="margin: 10px 0;"><strong>Name:</strong> {{name}}</p>
-                <p style="margin: 10px 0;"><strong>Business Name:</strong> {{businessname}}</p>
                 <p style="margin: 10px 0;"><strong>Email:</strong> <a href="mailto:{{email}}" style="color: #FDA400; text-decoration: none;">{{email}}</a></p>
                 <p style="margin: 10px 0;"><strong>Phone:</strong> {{phone}}</p>
             </div>
@@ -287,7 +286,6 @@ You've received a new inquiry from your website contact form.
 
 CONTACT DETAILS:
 Name: ${sanitizedData.name}
-Business Name: ${sanitizedData.businessname}
 Email: ${sanitizedData.email}
 Phone: ${sanitizedData.phone}
 
@@ -305,7 +303,7 @@ This email was sent automatically from your website contact form at ${sanitizedD
     };
 
     // Send the email
-    const result = await ses.sendEmail(emailParams).promise();
+    const result = await ses.send(new SendEmailCommand(emailParams));
 
     // Return success response
     return {

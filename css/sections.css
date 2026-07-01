@@ -11,7 +11,7 @@
 
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-2xl);
     margin-top: var(--spacing-2xl);
 }
@@ -81,32 +81,47 @@
     border: var(--border-width) solid var(--color-border);
 }
 
-/* Screen area with iframe */
+/* Screen area with scrolling screenshot */
 .browser-screen {
+    --screen-h: 300px;
     position: relative;
     width: 100%;
-    padding-bottom: 62%;
+    height: var(--screen-h);
     overflow: hidden;
     background: #f0f0f0;
 }
 
-.browser-screen iframe {
+.portfolio-screenshot {
     position: absolute;
     top: 0;
     left: 0;
-    width: 200%;
-    height: 200%;
-    border: none;
-    transform: scale(0.5);
-    transform-origin: top left;
-    pointer-events: none;
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
-/* Hover overlay */
+/* The whole browser mockup is a button that opens the lightbox */
+button.browser-mockup {
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+button.browser-mockup:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* Hover/focus overlay with the "View Full Site" prompt */
 .portfolio-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(37, 40, 61, 0.7);
+    background: rgba(37, 40, 61, 0.55);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -114,19 +129,30 @@
     transition: opacity var(--transition-base);
 }
 
-.portfolio-card:hover .portfolio-overlay {
+.portfolio-card:hover .portfolio-overlay,
+.portfolio-card:focus-within .portfolio-overlay,
+.carousel-card:hover .portfolio-overlay,
+.carousel-card:focus-within .portfolio-overlay {
     opacity: 1;
 }
 
-.portfolio-btn {
-    transform: translateY(8px);
-    transition: transform var(--transition-base), opacity var(--transition-base);
-    opacity: 0;
+.portfolio-overlay-label {
+    color: var(--color-white);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-lg);
+    padding: 0.6rem 1.25rem;
+    border: var(--border-width-thick) solid var(--color-white);
+    border-radius: var(--border-radius-full);
+    background: rgba(0, 0, 0, 0.2);
+    transform: translateY(6px);
+    transition: transform var(--transition-base);
 }
 
-.portfolio-card:hover .portfolio-btn {
+.portfolio-card:hover .portfolio-overlay-label,
+.portfolio-card:focus-within .portfolio-overlay-label,
+.carousel-card:hover .portfolio-overlay-label,
+.carousel-card:focus-within .portfolio-overlay-label {
     transform: translateY(0);
-    opacity: 1;
 }
 
 /* Card info below mockup */
@@ -150,18 +176,17 @@
 }
 
 /* Responsive portfolio */
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
     .portfolio-grid {
         grid-template-columns: 1fr;
         max-width: 540px;
         margin-left: auto;
         margin-right: auto;
-    }
-}
-
-@media (max-width: 768px) {
-    .portfolio-grid {
         gap: var(--spacing-xl);
+    }
+
+    .browser-screen {
+        --screen-h: 260px;
     }
 }
 
@@ -229,6 +254,106 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* === HERO PORTFOLIO CAROUSEL === */
+.hero-carousel {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 30rem;
+}
+
+.carousel {
+    --card-w: 40rem;
+    --card-h: 26rem;
+    --c-rotate: 28deg;
+    --c-scale: 0.12;
+    --c-depth: 10rem;
+    --c-spread: 10rem;
+    --c-blur: 0.4rem;
+    position: relative;
+    width: var(--card-w);
+    height: var(--card-h);
+    perspective: 1200px;
+    transform-style: preserve-3d;
+    outline: none;
+}
+
+.carousel .card-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform:
+        rotateY(calc(var(--offset, 0) * var(--c-rotate)))
+        scaleY(calc(1 - var(--abs-offset, 0) * var(--c-scale)))
+        translateZ(calc(var(--abs-offset, 0) * var(--c-depth) * -1))
+        translateX(calc(var(--direction, 0) * var(--c-spread) * -1));
+    filter: blur(calc(var(--abs-offset, 0) * var(--c-blur)));
+    transition: all 0.3s ease-out;
+}
+
+.carousel-card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-white);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+}
+
+.carousel-card .browser-mockup {
+    flex: 1;
+    min-height: 0;
+}
+
+.carousel-card .browser-screen {
+    flex: 1;
+    height: auto;
+    min-height: 0;
+}
+
+/* Carousel navigation arrows */
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    z-index: 3;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    line-height: 1;
+    color: var(--color-white);
+    background: rgba(37, 40, 61, 0.65);
+    border: none;
+    border-radius: var(--border-radius-full);
+    cursor: pointer;
+    user-select: none;
+    transition: background-color var(--transition-base), transform var(--transition-base);
+}
+
+.carousel-nav:hover {
+    background: var(--color-primary);
+}
+
+.carousel-nav:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.carousel-nav.left {
+    left: 0;
+    transform: translate(-50%, -50%);
+}
+
+.carousel-nav.right {
+    right: 0;
+    transform: translate(50%, -50%);
 }
 
 /* Video Wrapper for Lazy Loading */
@@ -391,6 +516,7 @@
 .hero-title,
 .hero-bullets,
 .hero-video,
+.hero-carousel,
 .hero-cta,
 .hero-testimonial {
     opacity: 0;
@@ -401,6 +527,7 @@
 .hero-title { animation-delay: 0.2s; }
 .hero-bullets { animation-delay: 0.6s; }
 .hero-video { animation-delay: 0.4s; }
+.hero-carousel { animation-delay: 0.4s; }
 .hero-cta,
 .hero-testimonial { animation-delay: 0.8s; }
 
@@ -943,6 +1070,27 @@
     .hero-video iframe {
         height: 250px;
     }
+
+    .hero-carousel {
+        grid-area: video;
+        width: 100%;
+        min-height: 19rem;
+        animation-delay: 0.6s;
+    }
+
+    .carousel {
+        --card-w: 21rem;
+        --card-h: 16rem;
+        --c-depth: 7rem;
+        --c-spread: 8rem;
+        perspective: 700px;
+    }
+
+    .carousel-nav {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.4rem;
+    }
     
     .hero-cta {
         grid-area: cta;
@@ -1060,6 +1208,11 @@
 @media (max-width: 480px) {
     .hero-title {
         font-size: var(--font-size-xl);
+    }
+
+    .carousel {
+        --card-w: 19rem;
+        --card-h: 15rem;
     }
     
     .video-wrapper {
