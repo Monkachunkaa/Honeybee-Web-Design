@@ -192,7 +192,7 @@ button.browser-mockup:focus-visible {
 
 /* === HERO SECTION === */
 .hero {
-    padding: 7.5rem 0 5rem; /* 120px 0 80px */
+    padding: 6rem 0 4rem; /* clears the 90px fixed navbar with breathing room */
     background: linear-gradient(to bottom, var(--color-dark) 0%, var(--color-dark-light) 100%);
     position: relative;
     overflow: hidden;
@@ -202,13 +202,13 @@ button.browser-mockup:focus-visible {
 .hero-content {
     display: flex;
     align-items: center;
-    min-height: 70vh;
     gap: var(--spacing-2xl);
 }
 
 .hero-text {
-    flex: 0 0 30%;
+    flex: 0 0 34%;
     text-align: left;
+    padding-left: var(--spacing-base);
     padding-right: var(--spacing-xl);
 }
 
@@ -248,21 +248,16 @@ button.browser-mockup:focus-visible {
     color: var(--color-white);
 }
 
-/* === HERO VIDEO === */
-.hero-video {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 /* === HERO PORTFOLIO CAROUSEL === */
 .hero-carousel {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 30rem;
+    min-height: 34rem;
+    /* Clip the fanned-out side cards to this column so they can't
+       spill over the hero copy on the left */
+    overflow: hidden;
 }
 
 .carousel {
@@ -271,7 +266,7 @@ button.browser-mockup:focus-visible {
     --c-rotate: 28deg;
     --c-scale: 0.12;
     --c-depth: 10rem;
-    --c-spread: 10rem;
+    --c-spread: 8rem;
     --c-blur: 0.4rem;
     position: relative;
     width: var(--card-w);
@@ -354,76 +349,6 @@ button.browser-mockup:focus-visible {
 .carousel-nav.right {
     right: 0;
     transform: translate(50%, -50%);
-}
-
-/* Video Wrapper for Lazy Loading */
-.video-wrapper {
-    position: relative;
-    width: 100%;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    border-radius: var(--border-radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow-xl), 0 0 20px var(--color-primary-glow);
-    transition: transform var(--transition-base), box-shadow var(--transition-base);
-    cursor: pointer;
-}
-
-.video-wrapper:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-2xl), 0 0 30px rgba(253, 164, 0, 0.6);
-}
-
-.video-placeholder {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #000;
-}
-
-.video-thumbnail {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.video-play-button {
-    position: relative;
-    z-index: 1;
-    width: 68px;
-    height: 48px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    transition: transform var(--transition-base), opacity var(--transition-base);
-    padding: 0;
-}
-
-.video-play-button:hover {
-    transform: scale(1.1);
-    opacity: 0.9;
-}
-
-.video-play-button:focus {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 4px;
-}
-
-/* Actual iframe once loaded */
-.hero-video iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
 }
 
 /* === HERO CTA === */
@@ -515,7 +440,6 @@ button.browser-mockup:focus-visible {
 /* === HERO ANIMATIONS === */
 .hero-title,
 .hero-bullets,
-.hero-video,
 .hero-carousel,
 .hero-cta,
 .hero-testimonial {
@@ -526,7 +450,6 @@ button.browser-mockup:focus-visible {
 
 .hero-title { animation-delay: 0.2s; }
 .hero-bullets { animation-delay: 0.6s; }
-.hero-video { animation-delay: 0.4s; }
 .hero-carousel { animation-delay: 0.4s; }
 .hero-cta,
 .hero-testimonial { animation-delay: 0.8s; }
@@ -985,11 +908,6 @@ button.browser-mockup:focus-visible {
 @media (min-width: 1400px) {
     .hero-content {
         gap: var(--spacing-3xl);
-        min-height: 75vh;
-    }
-    
-    .hero-video iframe {
-        height: 450px;
     }
     
     .pricing-card,
@@ -1001,11 +919,6 @@ button.browser-mockup:focus-visible {
 @media (min-width: 1600px) {
     .hero-content {
         gap: var(--spacing-4xl);
-        min-height: 80vh;
-    }
-    
-    .hero-video iframe {
-        height: 500px;
     }
     
     .pricing-card,
@@ -1026,6 +939,18 @@ button.browser-mockup:focus-visible {
     .pricing-card,
     .faq-list {
         max-width: 1100px;
+    }
+}
+
+/* Mid / narrow desktop: the carousel column is tighter here, so shrink the
+   cards to keep them off the hero copy */
+@media (min-width: 769px) and (max-width: 1100px) {
+    .carousel {
+        --card-w: 26rem;
+        --card-h: 19rem;
+        --c-depth: 8rem;
+        --c-spread: 6rem;
+        perspective: 900px;
     }
 }
 
@@ -1059,16 +984,6 @@ button.browser-mockup:focus-visible {
     
     .hero-bullets {
         display: none;
-    }
-    
-    .hero-video {
-        grid-area: video;
-        width: 100%;
-        animation-delay: 0.6s;
-    }
-    
-    .hero-video iframe {
-        height: 250px;
     }
 
     .hero-carousel {
@@ -1213,10 +1128,6 @@ button.browser-mockup:focus-visible {
     .carousel {
         --card-w: 19rem;
         --card-h: 15rem;
-    }
-    
-    .video-wrapper {
-        padding-bottom: 56.25%; /* Maintain 16:9 */
     }
     
     .pricing {

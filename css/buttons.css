@@ -147,24 +147,24 @@
 
 /* === SPECIAL BUTTON STYLES === */
 
-/* Hero CTA Button - Green version */
+/* Hero CTA Button - Brand orange/gold version */
 .btn-hero-cta {
-    background-color: var(--color-cta) !important;
-    color: var(--color-white) !important;
-    border-color: var(--color-cta) !important;
+    background-color: var(--color-primary) !important;
+    color: var(--color-text-primary) !important;
+    border-color: var(--color-primary) !important;
     padding: 1.125rem 2.25rem; /* 18px 36px */
     font-size: var(--font-size-lg);
-    box-shadow: 0 0 16px var(--color-cta-glow);
+    box-shadow: 0 0 16px var(--color-primary-glow);
     transform: translateY(-2px);
-    animation: pulse-glow-green 2s ease-in-out infinite;
+    animation: pulse-glow 2s ease-in-out infinite;
 }
 
 .btn-hero-cta:hover {
-    background-color: var(--color-cta-hover) !important;
-    color: var(--color-white) !important;
-    border-color: var(--color-cta-hover) !important;
+    background-color: var(--color-primary-hover) !important;
+    color: var(--color-text-primary) !important;
+    border-color: var(--color-primary-hover) !important;
     transform: translateY(-2px) scale(1.1);
-    box-shadow: 0 0 30px rgba(46, 204, 113, 0.8);
+    box-shadow: 0 0 30px rgba(253, 164, 0, 0.8);
 }
 
 .btn-hero-cta:active {
@@ -210,26 +210,6 @@
     border-color: var(--color-primary-hover);
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(253, 164, 0, 0.4);
-}
-
-/* Thank You Modal Button */
-.thank-you-btn {
-    background: var(--color-primary);
-    color: var(--color-text-primary);
-    border-color: var(--color-primary);
-    font-weight: var(--font-weight-semibold);
-    padding: 1rem 2rem; /* 16px 32px */
-    font-size: var(--font-size-lg);
-    box-shadow: 0 4px 16px var(--color-primary-glow);
-    animation: none;
-}
-
-.thank-you-btn:hover {
-    background: var(--color-primary-hover);
-    color: var(--color-text-primary);
-    border-color: var(--color-primary-hover);
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 6px 20px rgba(253, 164, 0, 0.6);
 }
 
 /* === BUTTON ANIMATIONS === */

@@ -61,11 +61,6 @@ class HoneybeeWebsite {
                 this.modules.animations = new window.Animations();
             }
 
-            // Initialize YouTube Lazy Load
-            if (window.YouTubeLazyLoad) {
-                this.modules.youtubeLazyLoad = new window.YouTubeLazyLoad();
-            }
-
             // Initialize Portfolio Carousel
             if (window.PortfolioCarousel) {
                 this.modules.portfolioCarousel = new window.PortfolioCarousel();

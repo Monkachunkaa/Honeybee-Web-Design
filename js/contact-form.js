@@ -1,22 +1,18 @@
 /**
  * Contact Form Module
- * Handles form submission, validation, and email sending
+ * Handles single-page form validation and submission (all fields visible at once)
  */
 class ContactForm {
     constructor(modalManager) {
         this.modalManager = modalManager;
         this.form = document.getElementById('contact-form-element');
-        
+
         this.init();
     }
 
     init() {
         if (!this.form) return;
-        
-        this.setupFormSubmission();
-    }
 
-    setupFormSubmission() {
         this.form.addEventListener('submit', (e) => {
             e.preventDefault();
             this.handleFormSubmission();
@@ -24,19 +20,11 @@ class ContactForm {
     }
 
     async handleFormSubmission() {
-        // Validate the final step
-        if (!this.modalManager.validateCurrentStep()) {
-            return;
-        }
+        // Validate every field up front
+        if (!this.validateForm()) return;
 
-        // Get form data
         const formData = new FormData(this.form);
         const data = Object.fromEntries(formData.entries());
-
-        // Validate required fields
-        if (!this.validateFormData(data)) {
-            return;
-        }
 
         // Show loading state
         const submitBtn = document.getElementById('form-submit');
@@ -58,7 +46,7 @@ class ContactForm {
                     message: data.message
                 })
             });
-            
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -68,33 +56,26 @@ class ContactForm {
             if (result.success) {
                 // Track successful form submission
                 if (window.gtag) {
-                    // Google Analytics event tracking
                     gtag('event', 'Form_Success', {
                         event_category: 'conversion',
                         event_label: 'Contact Form Successfully Submitted',
                         value: 1
                     });
-                    
+
                     // Google Ads conversion tracking
                     gtag('event', 'conversion', {
                         'send_to': 'AW-738689668/Qo67CJa80qYbEISFnuAC'
                     });
                 }
-                
-                // Close contact form modal
+
+                // Close contact form modal and show the thank-you modal
                 this.modalManager.closeContactModal();
-                
-                // Show thank you modal
                 this.modalManager.showThankYouModal();
-                
-                // Reset the multi-step form for next time
-                this.modalManager.resetMultiStepForm();
             } else {
                 throw new Error(result.error || 'Unknown error');
             }
         } catch (error) {
-            // Show user-friendly error message
-            this.showErrorMessage('Sorry, there was an error sending your message. Please try again or contact us directly at jake@honeybeewebdesign.com');
+            this.showErrorMessage('Sorry, there was an error sending your message. Please try again or email us directly at jake@honeybeewebdesign.com');
         } finally {
             // Reset button state
             submitBtn.textContent = originalText;
@@ -102,71 +83,91 @@ class ContactForm {
         }
     }
 
-    validateFormData(data) {
-        const requiredFields = ['name', 'email', 'message'];
-        let isValid = true;
+    validateForm() {
+        const fields = ['name', 'email', 'phone', 'message'];
+        fields.forEach((name) => this.clearFieldError(name));
 
-        requiredFields.forEach(field => {
-            const input = this.form.querySelector(`[name="${field}"]`);
-            if (input && input.hasAttribute('required') && !data[field]) {
-                isValid = false;
-                input.style.borderColor = '#E53E3E';
-                input.setAttribute('aria-invalid', 'true');
-            } else if (input) {
-                input.style.borderColor = '#E5E5E7';
-                input.setAttribute('aria-invalid', 'false');
+        let firstInvalid = null;
+        const fail = (name, message) => {
+            this.setFieldError(name, message);
+            if (!firstInvalid) {
+                firstInvalid = this.form.querySelector(`[name="${name}"]`);
             }
-        });
+        };
 
-        if (!isValid) {
-            this.showErrorMessage('Please fill in all required fields.');
-            return false;
+        const valueOf = (name) => (this.form.querySelector(`[name="${name}"]`)?.value || '').trim();
+
+        const name = valueOf('name');
+        const email = valueOf('email');
+        const phone = valueOf('phone');
+        const message = valueOf('message');
+
+        if (!name) {
+            fail('name', 'Please enter your name');
         }
 
-        // Email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(data.email)) {
-            const emailInput = this.form.querySelector('[name="email"]');
-            if (emailInput) {
-                emailInput.style.borderColor = '#E53E3E';
-                emailInput.setAttribute('aria-invalid', 'true');
-            }
-            this.showErrorMessage('Please enter a valid email address.');
-            return false;
+        if (!email) {
+            fail('email', 'Please enter your email');
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            fail('email', 'Please enter a valid email address');
         }
 
+        // Phone is optional, but if provided it should look like a phone number
+        if (phone && !/^[\+]?[\d\s\-\(\)]+$/.test(phone)) {
+            fail('phone', 'Please enter a valid phone number');
+        }
+
+        if (!message) {
+            fail('message', 'Please tell us a little about your project');
+        }
+
+        if (firstInvalid) {
+            firstInvalid.focus();
+            return false;
+        }
         return true;
     }
 
+    setFieldError(name, message) {
+        const input = this.form.querySelector(`[name="${name}"]`);
+        const errorEl = document.getElementById(`${name}-error`);
+        if (input) input.setAttribute('aria-invalid', 'true');
+        if (errorEl) {
+            errorEl.textContent = message;
+            errorEl.classList.add('show');
+        }
+    }
+
+    clearFieldError(name) {
+        const input = this.form.querySelector(`[name="${name}"]`);
+        const errorEl = document.getElementById(`${name}-error`);
+        if (input) input.setAttribute('aria-invalid', 'false');
+        if (errorEl) {
+            errorEl.textContent = '';
+            errorEl.classList.remove('show');
+        }
+    }
+
     showErrorMessage(message) {
-        // Create or update error message display
         let errorDiv = document.getElementById('form-error-message');
-        
+
         if (!errorDiv) {
             errorDiv = document.createElement('div');
             errorDiv.id = 'form-error-message';
             errorDiv.className = 'form-error-message';
-            errorDiv.style.cssText = `
-                background: #fee;
-                border: 1px solid #fcc;
-                color: #c33;
-                padding: 1rem;
-                border-radius: 6px;
-                margin: 1rem 0;
-                text-align: center;
-                font-size: 14px;
-            `;
-            
-            // Insert before form navigation
-            const navigation = this.form.querySelector('.form-navigation');
-            if (navigation) {
-                navigation.parentNode.insertBefore(errorDiv, navigation);
+
+            // Insert just above the submit button
+            const actions = this.form.querySelector('.form-actions');
+            if (actions) {
+                actions.parentNode.insertBefore(errorDiv, actions);
+            } else {
+                this.form.appendChild(errorDiv);
             }
         }
-        
+
         errorDiv.textContent = message;
         errorDiv.style.display = 'block';
-        
+
         // Auto-hide after 10 seconds
         setTimeout(() => {
             if (errorDiv) {

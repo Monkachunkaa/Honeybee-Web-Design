@@ -54,7 +54,7 @@
 /* === MODAL HEADER === */
 .modal-header {
     position: relative;
-    padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-base);
+    padding: var(--spacing-base) var(--spacing-lg);
     text-align: center;
     border-bottom: var(--border-width) solid var(--color-border);
 }
@@ -105,6 +105,21 @@
 .modal form {
     padding: var(--spacing-base) var(--spacing-lg) var(--spacing-lg);
     position: relative;
+}
+
+/* Contact form: pin the submit button so it's always visible, even if the
+   fields are taller than the screen (the fields scroll, the button stays put) */
+#contact-modal form {
+    padding-bottom: 0;
+}
+
+#contact-modal .form-actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    background-color: var(--color-white);
+    margin: var(--spacing-base) calc(-1 * var(--spacing-lg)) 0;
+    padding: var(--spacing-base) var(--spacing-lg);
 }
 
 /* === THANK YOU MODAL === */
@@ -207,47 +222,6 @@
     font-weight: var(--font-weight-semibold);
 }
 
-/* === THANK YOU DETAILS === */
-.thank-you-details {
-    display: grid;
-    gap: var(--spacing-lg);
-    margin-bottom: var(--spacing-xl);
-    text-align: left;
-}
-
-.thank-you-item {
-    background: rgba(255, 255, 255, 0.05);
-    padding: var(--spacing-lg);
-    border-radius: var(--border-radius-lg);
-    border: var(--border-width) solid rgba(253, 164, 0, 0.3);
-}
-
-.thank-you-item strong {
-    display: block;
-    color: var(--color-primary);
-    font-size: var(--font-size-lg);
-    margin-bottom: var(--spacing-sm);
-    font-weight: var(--font-weight-semibold);
-}
-
-.thank-you-item p {
-    color: var(--color-white);
-    margin: 0;
-    line-height: var(--line-height-normal);
-}
-
-.thank-you-item a {
-    color: var(--color-primary);
-    text-decoration: none;
-    font-weight: var(--font-weight-medium);
-    transition: color var(--transition-base);
-}
-
-.thank-you-item a:hover {
-    color: var(--color-primary-hover);
-    text-decoration: underline;
-}
-
 /* === MODAL RESPONSIVE STYLES === */
 @media (max-width: 768px) {
     .modal-content {
@@ -257,7 +231,7 @@
     }
 
     .modal-header {
-        padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-base);
+        padding: var(--spacing-base) var(--spacing-lg);
     }
 
     .modal form {
@@ -292,16 +266,6 @@
     
     .thank-you-title {
         font-size: var(--font-size-xl);
-    }
-    
-    .form-navigation {
-        gap: var(--spacing-xs);
-    }
-    
-    .form-navigation .btn {
-        padding: 0.625rem 1rem;
-        font-size: var(--font-size-xs);
-        min-width: 80px;
     }
 }
 

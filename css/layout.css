@@ -7,7 +7,7 @@
 .container {
     max-width: var(--container-2xl);
     margin: 0 auto;
-    padding: 0 var(--spacing-xl);
+    padding: 0 var(--spacing-2xl);
     width: 100%;
 }
 
@@ -15,7 +15,7 @@
 @media (min-width: 1600px) {
     .container {
         max-width: var(--container-3xl);
-        padding: 0 2.5rem; /* 40px */
+        padding: 0 3.5rem; /* 56px */
     }
 }
 
